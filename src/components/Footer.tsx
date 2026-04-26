@@ -36,6 +36,7 @@ export function Footer() {
               { to: "/gallery", l: "Gallery" },
               { to: "/reservations", l: "Reservations" },
               { to: "/about", l: "About" },
+              { to: "/faq", l: "FAQ" },
               { to: "/contact", l: "Contact" },
             ].map((i) => (
               <li key={i.to}>
