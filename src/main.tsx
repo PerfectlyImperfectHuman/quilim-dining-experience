@@ -12,6 +12,7 @@ import Gallery from "./routes/gallery";
 import Menu from "./routes/menu";
 import Reservations from "./routes/reservations";
 import NotFound from "./routes/not-found";
+import FAQ from "./routes/faq";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -24,6 +25,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/reservations" element={<Reservations />} />
+        <Route path="/faq" element={<FAQ />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Toaster richColors position="top-right" />
