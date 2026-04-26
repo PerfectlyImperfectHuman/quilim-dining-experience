@@ -20,7 +20,7 @@ export function Footer() {
             <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-full border border-white/20 grid place-items-center hover:bg-gold hover:border-gold hover:text-[oklch(0.22_0.04_25)] transition-colors">
               <Instagram className="h-4 w-4" />
             </a>
-            <a href="https://wa.me/924418540373" target="_blank" rel="noreferrer" aria-label="WhatsApp" className="w-10 h-10 rounded-full border border-white/20 grid place-items-center hover:bg-gold hover:border-gold hover:text-[oklch(0.22_0.04_25)] transition-colors">
+            <a href="https://wa.me/923418540373" target="_blank" rel="noreferrer" aria-label="WhatsApp" className="w-10 h-10 rounded-full border border-white/20 grid place-items-center hover:bg-gold hover:border-gold hover:text-[oklch(0.22_0.04_25)] transition-colors">
               <MessageCircle className="h-4 w-4" />
             </a>
           </div>
@@ -49,8 +49,8 @@ export function Footer() {
         <div>
           <h4 className="text-gold font-serif text-lg mb-4">Contact</h4>
           <ul className="space-y-3 text-sm text-white/75">
-            <li className="flex gap-3"><MapPin className="h-4 w-4 text-gold shrink-0 mt-0.5" /> Kohinoor City, Faisalabad, Pakistan</li>
-            <li className="flex gap-3"><Phone className="h-4 w-4 text-gold shrink-0 mt-0.5" /> <a href="tel:+924418540373" className="hover:text-gold transition-colors">+92 41 8540373</a></li>
+            <li className="flex gap-3"><MapPin className="h-4 w-4 text-gold shrink-0 mt-0.5" /> C457+47J Hashmat Ali, Khan Rd, Block C People's Colony No 1, Faisalabad</li>
+            <li className="flex gap-3"><Phone className="h-4 w-4 text-gold shrink-0 mt-0.5" /> <a href="tel:+924118540373" className="hover:text-gold transition-colors">+92 41 8540373</a></li>
           </ul>
         </div>
 
