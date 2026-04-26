@@ -247,11 +247,6 @@ function Index() {
         </div>
       </section>
 
-      {/* Hidden references to retain imports for tree-shake clarity */}
-      <div className="hidden">
-        <img src={dishKarahi} alt="" />
-        <img src={dishChinese} alt="" />
-      </div>
     </Layout>
   );
 }
