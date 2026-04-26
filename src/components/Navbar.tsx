@@ -49,10 +49,14 @@ export function Navbar() {
               to={l.to}
               end={l.to === "/"}
               className={({ isActive }) =>
-                `text-sm font-medium hover:text-primary transition-colors relative py-1 ${
+                `text-sm font-medium transition-colors relative py-1 ${
                   isActive
-                    ? "text-primary after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-0.5 after:bg-gold"
-                    : "text-foreground/80"
+                    ? scrolled
+                      ? "text-primary after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-0.5 after:bg-gold"
+                      : "text-gold after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-0.5 after:bg-primary"
+                    : scrolled
+                    ? "text-foreground/80 hover:text-primary"
+                    : "text-white hover:text-gold"
                 }`
               }
             >
