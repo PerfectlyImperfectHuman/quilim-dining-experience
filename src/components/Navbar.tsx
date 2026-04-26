@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -44,18 +44,20 @@ export function Navbar() {
 
         <nav className="hidden lg:flex items-center gap-8">
           {links.map((l) => (
-            <Link
+            <NavLink
               key={l.to}
               to={l.to}
-              className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors relative py-1"
-              activeProps={{
-                className:
-                  "text-primary after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-0.5 after:bg-gold",
-              }}
-              activeOptions={{ exact: l.to === "/" }}
+              end={l.to === "/"}
+              className={({ isActive }) =>
+                `text-sm font-medium hover:text-primary transition-colors relative py-1 ${
+                  isActive
+                    ? "text-primary after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-0.5 after:bg-gold"
+                    : "text-foreground/80"
+                }`
+              }
             >
               {l.label}
-            </Link>
+            </NavLink>
           ))}
         </nav>
 
@@ -82,16 +84,19 @@ export function Navbar() {
       >
         <nav className="container mx-auto px-4 py-4 flex flex-col gap-1">
           {links.map((l) => (
-            <Link
+            <NavLink
               key={l.to}
               to={l.to}
+              end={l.to === "/"}
               onClick={() => setOpen(false)}
-              className="px-4 py-3 rounded-md text-foreground hover:bg-accent transition-colors"
-              activeProps={{ className: "bg-accent text-primary font-medium" }}
-              activeOptions={{ exact: l.to === "/" }}
+              className={({ isActive }) =>
+                `px-4 py-3 rounded-md transition-colors ${
+                  isActive ? "bg-accent text-primary font-medium" : "text-foreground hover:bg-accent"
+                }`
+              }
             >
               {l.label}
-            </Link>
+            </NavLink>
           ))}
           <Button asChild className="mt-2 bg-primary hover:bg-primary/90">
             <Link to="/reservations" onClick={() => setOpen(false)}>
