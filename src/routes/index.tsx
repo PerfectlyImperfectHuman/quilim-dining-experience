@@ -9,8 +9,6 @@ import interiorImg from "@/assets/interior.jpg";
 import dishParmesan from "@/assets/dish-parmesan.jpg";
 import dishPlatter from "@/assets/dish-platter.jpg";
 import dishSwiss from "@/assets/dish-swiss.jpg";
-import dishKarahi from "@/assets/dish-karahi.jpg";
-import dishChinese from "@/assets/dish-chinese.jpg";
 
 const dishes = [
   { name: "Parmesan Chicken", desc: "Pan-seared chicken in a velvety parmesan cream sauce — a Quilim favourite.", img: dishParmesan, tag: "Bestseller" },
