@@ -81,12 +81,18 @@ function Index() {
               <Link to="/menu">View Our Menu</Link>
             </Button>
           </div>
-          <div className="mt-9 inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur border border-white/25 text-sm">
+          <a
+            href={GOOGLE_MAPS_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-9 inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur border border-white/25 text-sm hover:bg-white/20 transition-colors group"
+          >
             <div className="flex">
               {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-gold text-gold" />)}
             </div>
             <span className="font-medium">4.6 Rating · 4,000+ Reviews on Google</span>
-          </div>
+            <ExternalLink className="h-3.5 w-3.5 opacity-70 group-hover:opacity-100" />
+          </a>
         </div>
       </section>
 
@@ -174,7 +180,12 @@ function Index() {
 
       {/* Google Review Block */}
       <section className="py-16 bg-gradient-to-br from-secondary/60 to-accent/40 border-y border-border">
-        <div className="container mx-auto px-4 text-center max-w-3xl">
+        <a
+          href={GOOGLE_MAPS_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="container mx-auto px-4 text-center max-w-3xl block group"
+        >
           <div className="inline-flex items-center gap-3 mb-5">
             <div className="flex items-center gap-1 text-3xl">
               {[...Array(5)].map((_, i) => <Star key={i} className="h-7 w-7 fill-gold text-gold" />)}
@@ -186,7 +197,10 @@ function Index() {
           <p className="text-muted-foreground mt-4 text-lg">
             Faisalabad's most reviewed fine-dining restaurant — and we're just getting started.
           </p>
-        </div>
+          <span className="inline-flex items-center gap-2 mt-5 text-sm font-medium text-primary group-hover:text-gold transition-colors">
+            Read all reviews on Google <ExternalLink className="h-4 w-4" />
+          </span>
+        </a>
       </section>
 
       {/* Reservation CTA */}
