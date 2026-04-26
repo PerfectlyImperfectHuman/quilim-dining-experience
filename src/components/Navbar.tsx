@@ -25,8 +25,18 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Transparent only on home page when at the very top
-  const transparent = isHome && !scrolled;
+  // Track desktop (lg+) breakpoint — mobile is ALWAYS solid
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  // Transparent only on home page, at top, on desktop. Mobile = always solid.
+  const transparent = isHome && !scrolled && isDesktop;
 
   return (
     <header
