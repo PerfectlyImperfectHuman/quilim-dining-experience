@@ -278,8 +278,6 @@ function Index() {
             </a>
           </Button>
         </div>
-          ))}
-        </div>
       </section>
 
     </Layout>
