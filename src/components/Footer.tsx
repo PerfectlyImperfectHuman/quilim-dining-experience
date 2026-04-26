@@ -11,18 +11,18 @@ export function Footer() {
             <span className="w-8 h-px bg-gold" />
           </div>
           <p className="text-sm text-white/70 leading-relaxed">
-            Fine Dining in the Heart of Faisalabad
+            Fine Dining in the Heart of <span className="text-gold">Faisalabad</span> — Pakistani · Continental · Chinese.
           </p>
           <div className="flex gap-3 mt-5">
-            {[Instagram, Facebook, MessageCircle].map((Icon, i) => (
-              <a
-                key={i}
-                href="#"
-                className="w-10 h-10 rounded-full border border-white/20 grid place-items-center hover:bg-gold hover:border-gold hover:text-[oklch(0.22_0.04_25)] transition-colors"
-              >
-                <Icon className="h-4 w-4" />
-              </a>
-            ))}
+            <a href="https://www.facebook.com/Quilim.fsd" target="_blank" rel="noreferrer" aria-label="Facebook" className="w-10 h-10 rounded-full border border-white/20 grid place-items-center hover:bg-gold hover:border-gold hover:text-[oklch(0.22_0.04_25)] transition-colors">
+              <Facebook className="h-4 w-4" />
+            </a>
+            <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-full border border-white/20 grid place-items-center hover:bg-gold hover:border-gold hover:text-[oklch(0.22_0.04_25)] transition-colors">
+              <Instagram className="h-4 w-4" />
+            </a>
+            <a href="https://wa.me/924418540373" target="_blank" rel="noreferrer" aria-label="WhatsApp" className="w-10 h-10 rounded-full border border-white/20 grid place-items-center hover:bg-gold hover:border-gold hover:text-[oklch(0.22_0.04_25)] transition-colors">
+              <MessageCircle className="h-4 w-4" />
+            </a>
           </div>
         </div>
 
@@ -50,7 +50,7 @@ export function Footer() {
           <h4 className="text-gold font-serif text-lg mb-4">Contact</h4>
           <ul className="space-y-3 text-sm text-white/75">
             <li className="flex gap-3"><MapPin className="h-4 w-4 text-gold shrink-0 mt-0.5" /> Kohinoor City, Faisalabad, Pakistan</li>
-            <li className="flex gap-3"><Phone className="h-4 w-4 text-gold shrink-0 mt-0.5" /> +92 41 8540373</li>
+            <li className="flex gap-3"><Phone className="h-4 w-4 text-gold shrink-0 mt-0.5" /> <a href="tel:+924418540373" className="hover:text-gold transition-colors">+92 41 8540373</a></li>
           </ul>
         </div>
 
