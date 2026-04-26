@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Layout } from "@/components/Layout";
 import { PageHero } from "@/components/PageHero";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, Play, Facebook, Instagram, ExternalLink } from "lucide-react";
 import { usePageTitle } from "@/hooks/use-page-title";
+import { FACEBOOK_URL, INSTAGRAM_URL } from "@/lib/links";
 
 import dishParmesan from "@/assets/dish-parmesan.jpg";
-import dishPlatter from "@/assets/dish-platter.jpg";
 import dishSwiss from "@/assets/dish-swiss.jpg";
 import dishKarahi from "@/assets/dish-karahi.jpg";
 import dishBbq from "@/assets/dish-bbq.jpg";
@@ -18,45 +18,72 @@ import dishColdCoffee from "@/assets/dish-coldcoffee.jpg";
 import dishMintMargarita from "@/assets/dish-mintmargarita.jpg";
 import dishNaan from "@/assets/dish-naan.jpg";
 import dishAppetizer from "@/assets/dish-appetizer.jpg";
-import dishRice from "@/assets/dish-rice.jpg";
-import about from "@/assets/about.jpg";
-import hero from "@/assets/hero.jpg";
-import interior from "@/assets/interior.jpg";
-import family from "@/assets/ambiance-family.jpg";
-import banquet from "@/assets/ambiance-banquet.jpg";
 
-type Cat = "Food" | "Ambiance" | "BBQ" | "Desserts";
-type Img = { src: string; cat: Cat; alt: string; tall?: boolean };
+// Real Quilim photos
+import realExterior from "@/assets/real-exterior.jpg";
+import realChandelier from "@/assets/real-chandelier.jpg";
+import realAppetizer from "@/assets/real-appetizer-platter.jpg";
+import realFamily from "@/assets/real-family-dining.jpg";
+import realBuffet1 from "@/assets/real-buffet-1.jpg";
+import realBuffet2 from "@/assets/real-buffet-2.jpg";
+import realBbqCollage from "@/assets/real-bbq-collage.jpg";
+import realChafing from "@/assets/real-chafing.jpg";
 
-const images: Img[] = [
-  { src: dishKarahi, cat: "Food", alt: "Sizzling Chicken Karahi", tall: true },
-  { src: interior, cat: "Ambiance", alt: "Grand candlelit dining hall" },
-  { src: dishBbq, cat: "BBQ", alt: "Mixed BBQ Platter" },
-  { src: dishTarragon, cat: "Food", alt: "Tarragon chicken steak" },
-  { src: family, cat: "Ambiance", alt: "Families dining at Quilim", tall: true },
-  { src: dishBrownie, cat: "Desserts", alt: "Chocolate brownie with ice cream" },
-  { src: dishMutton, cat: "Food", alt: "Mutton karahi with naan" },
-  { src: banquet, cat: "Ambiance", alt: "Private banquet hall" },
-  { src: dishColdCoffee, cat: "Desserts", alt: "Cold coffee" },
-  { src: dishParmesan, cat: "Food", alt: "Parmesan Chicken", tall: true },
-  { src: dishSteak, cat: "Food", alt: "Black pepper beef steak" },
-  { src: dishNaan, cat: "Food", alt: "Fresh tandoori naan" },
-  { src: dishMintMargarita, cat: "Desserts", alt: "Mint margarita mocktail" },
-  { src: dishChinese, cat: "Food", alt: "Chicken Manchurian" },
-  { src: dishAppetizer, cat: "Food", alt: "Crispy appetizer platter" },
-  { src: dishSwiss, cat: "Food", alt: "Swiss Nipolo Chicken" },
-  { src: dishRice, cat: "Food", alt: "Aromatic biryani with raita" },
-  { src: dishPlatter, cat: "Food", alt: "Quilim Lunch Platter" },
-  { src: hero, cat: "Ambiance", alt: "Warm dining room glow", tall: true },
-  { src: about, cat: "Ambiance", alt: "Elegant table setting" },
+type Cat = "All" | "Food" | "Ambiance" | "BBQ" | "Desserts" | "Videos";
+type Media =
+  | { type: "image"; src: string; cat: Exclude<Cat, "All" | "Videos">; alt: string; tall?: boolean }
+  | { type: "video"; src: string; poster: string; cat: "Videos"; alt: string; tall?: boolean };
+
+const media: Media[] = [
+  // Real photos featured first
+  { type: "image", src: realExterior, cat: "Ambiance", alt: "Quilim Restaurant exterior at dusk", tall: true },
+  { type: "image", src: realChandelier, cat: "Ambiance", alt: "Grand crystal chandelier inside Quilim" },
+  { type: "image", src: realAppetizer, cat: "Food", alt: "Signature appetizer platter at Quilim" },
+  { type: "image", src: realFamily, cat: "Ambiance", alt: "Families dining together at Quilim", tall: true },
+  { type: "image", src: realBuffet1, cat: "Food", alt: "Premium buffet spread at Quilim" },
+  { type: "image", src: realBuffet2, cat: "Food", alt: "Live buffet display with fresh dishes" },
+  { type: "image", src: realBbqCollage, cat: "BBQ", alt: "Mixed BBQ — kababs, tikka and roast", tall: true },
+  { type: "image", src: realChafing, cat: "Food", alt: "Chafing dish line — buffet service" },
+
+  // Sample videos (Pexels — replace with real Quilim videos when available)
+  {
+    type: "video",
+    src: "https://videos.pexels.com/video-files/3296882/3296882-uhd_2560_1440_30fps.mp4",
+    poster: realChafing,
+    cat: "Videos",
+    alt: "A look inside our kitchen",
+  },
+  {
+    type: "video",
+    src: "https://videos.pexels.com/video-files/3298179/3298179-hd_1920_1080_25fps.mp4",
+    poster: realBbqCollage,
+    cat: "Videos",
+    alt: "BBQ grill in action",
+    tall: true,
+  },
+
+  // Studio dish photography
+  { type: "image", src: dishKarahi, cat: "Food", alt: "Sizzling Chicken Karahi" },
+  { type: "image", src: dishBbq, cat: "BBQ", alt: "Mixed BBQ Platter" },
+  { type: "image", src: dishTarragon, cat: "Food", alt: "Tarragon chicken steak" },
+  { type: "image", src: dishBrownie, cat: "Desserts", alt: "Chocolate brownie with ice cream" },
+  { type: "image", src: dishMutton, cat: "Food", alt: "Mutton karahi with naan" },
+  { type: "image", src: dishColdCoffee, cat: "Desserts", alt: "Cold coffee" },
+  { type: "image", src: dishParmesan, cat: "Food", alt: "Parmesan Chicken", tall: true },
+  { type: "image", src: dishSteak, cat: "Food", alt: "Black pepper beef steak" },
+  { type: "image", src: dishNaan, cat: "Food", alt: "Fresh tandoori naan" },
+  { type: "image", src: dishMintMargarita, cat: "Desserts", alt: "Mint margarita mocktail" },
+  { type: "image", src: dishChinese, cat: "Food", alt: "Chicken Manchurian" },
+  { type: "image", src: dishAppetizer, cat: "Food", alt: "Crispy appetizer platter" },
+  { type: "image", src: dishSwiss, cat: "Food", alt: "Swiss Nipolo Chicken" },
 ];
 
 function GalleryPage() {
   usePageTitle("Gallery — Quilim Restaurant Faisalabad");
-  const [filter, setFilter] = useState<"All" | Cat>("All");
+  const [filter, setFilter] = useState<Cat>("All");
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
-  const filtered = filter === "All" ? images : images.filter((i) => i.cat === filter);
+  const filtered = filter === "All" ? media : media.filter((m) => m.cat === filter);
 
   const next = () => setOpenIdx((i) => (i === null ? null : (i + 1) % filtered.length));
   const prev = () => setOpenIdx((i) => (i === null ? null : (i - 1 + filtered.length) % filtered.length));
@@ -73,13 +100,16 @@ function GalleryPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openIdx, filtered.length]);
 
+  const current = openIdx !== null ? filtered[openIdx] : null;
+
   return (
     <Layout>
       <PageHero title="A Feast for the Eyes" subtitle="Moments captured at Quilim" />
 
       <section className="container mx-auto px-4 lg:px-8 py-12 md:py-16">
+        {/* Filters */}
         <div className="flex flex-wrap justify-center gap-2 mb-10">
-          {(["All", "Food", "Ambiance", "BBQ", "Desserts"] as const).map((f) => (
+          {(["All", "Food", "Ambiance", "BBQ", "Desserts", "Videos"] as const).map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
@@ -94,31 +124,64 @@ function GalleryPage() {
           ))}
         </div>
 
-        {/* Masonry-style grid using CSS columns */}
+        {/* Masonry */}
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 [column-fill:_balance]">
-          {filtered.map((img, i) => (
+          {filtered.map((item, i) => (
             <button
-              key={`${img.src}-${i}`}
+              key={`${item.src}-${i}`}
               onClick={() => setOpenIdx(i)}
               className="group relative overflow-hidden rounded-lg shadow-card hover-lift mb-4 break-inside-avoid block w-full"
             >
               <img
-                src={img.src}
-                alt={img.alt}
+                src={item.type === "video" ? item.poster : item.src}
+                alt={item.alt}
                 loading="lazy"
                 className={`w-full object-cover transition-transform duration-700 group-hover:scale-110 ${
-                  img.tall ? "aspect-[3/4]" : "aspect-[4/3]"
+                  item.tall ? "aspect-[3/4]" : "aspect-[4/3]"
                 }`}
               />
-              <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/40 transition-colors grid place-items-end p-4">
-                <span className="opacity-0 group-hover:opacity-100 text-white font-serif text-base transition-opacity text-left w-full">{img.alt}</span>
+              {item.type === "video" && (
+                <div className="absolute inset-0 grid place-items-center bg-black/30 group-hover:bg-black/40 transition-colors">
+                  <div className="w-16 h-16 rounded-full bg-white/95 grid place-items-center shadow-elegant group-hover:scale-110 transition-transform">
+                    <Play className="h-7 w-7 text-primary fill-primary ml-1" />
+                  </div>
+                </div>
+              )}
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                <span className="text-white font-serif text-sm">{item.alt}</span>
               </div>
             </button>
           ))}
         </div>
+
+        {/* Social CTA */}
+        <div className="mt-16 text-center bg-gradient-to-br from-secondary/60 to-accent/40 rounded-xl p-8 md:p-10 border border-border/60">
+          <h3 className="font-serif text-2xl md:text-3xl text-primary font-bold">More on social</h3>
+          <p className="text-muted-foreground mt-3 max-w-lg mx-auto">
+            Discover daily updates, behind-the-scenes moments, and new menu launches on our Facebook and Instagram.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3 justify-center">
+            <a
+              href={FACEBOOK_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 px-6 h-12 rounded-md bg-[#1877F2] hover:bg-[#1560c4] text-white font-medium transition-colors"
+            >
+              <Facebook className="h-5 w-5" /> Facebook <ExternalLink className="h-3.5 w-3.5 opacity-70" />
+            </a>
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 px-6 h-12 rounded-md bg-gradient-to-tr from-[#feda75] via-[#d62976] to-[#4f5bd5] text-white font-medium transition-opacity hover:opacity-90"
+            >
+              <Instagram className="h-5 w-5" /> Instagram <ExternalLink className="h-3.5 w-3.5 opacity-70" />
+            </a>
+          </div>
+        </div>
       </section>
 
-      {openIdx !== null && (
+      {current && (
         <div
           onClick={() => setOpenIdx(null)}
           className="fixed inset-0 z-[100] bg-black/95 grid place-items-center p-4 animate-fade-in-up"
@@ -144,14 +207,25 @@ function GalleryPage() {
           >
             <ChevronRight className="h-6 w-6" />
           </button>
-          <img
-            src={filtered[openIdx].src}
-            alt={filtered[openIdx].alt}
-            onClick={(e) => e.stopPropagation()}
-            className="max-h-[88vh] max-w-[92vw] object-contain rounded-lg"
-          />
+          {current.type === "video" ? (
+            <video
+              src={current.src}
+              controls
+              autoPlay
+              playsInline
+              onClick={(e) => e.stopPropagation()}
+              className="max-h-[88vh] max-w-[92vw] rounded-lg bg-black"
+            />
+          ) : (
+            <img
+              src={current.src}
+              alt={current.alt}
+              onClick={(e) => e.stopPropagation()}
+              className="max-h-[88vh] max-w-[92vw] object-contain rounded-lg"
+            />
+          )}
           <p className="absolute bottom-6 inset-x-0 text-center text-white/85 text-sm">
-            {filtered[openIdx].alt}
+            {current.alt}
           </p>
         </div>
       )}
