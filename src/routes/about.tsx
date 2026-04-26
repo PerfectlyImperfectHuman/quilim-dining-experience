@@ -1,20 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
+
 import { Layout } from "@/components/Layout";
 import { PageHero } from "@/components/PageHero";
 import { Card } from "@/components/ui/card";
 import { Sparkles, Heart, Lamp, ChefHat } from "lucide-react";
 import aboutImg from "@/assets/about.jpg";
 import heroImg from "@/assets/hero.jpg";
-
-export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "About — Quilim Restaurant" },
-      { name: "description", content: "The story of Quilim — a Faisalabad landmark of fine dining, hospitality, and authentic flavor." },
-    ],
-  }),
-  component: AboutPage,
-});
 
 const values = [
   { icon: Sparkles, title: "Quality Ingredients", desc: "Sourced fresh daily for unmatched flavor." },
@@ -108,3 +98,5 @@ function AboutPage() {
     </Layout>
   );
 }
+
+export default AboutPage;

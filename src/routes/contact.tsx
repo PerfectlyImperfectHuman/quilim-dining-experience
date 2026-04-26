@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+
 import { useState } from "react";
 import { toast } from "sonner";
 import { Layout } from "@/components/Layout";
@@ -9,16 +9,6 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
-
-export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact — Quilim Restaurant" },
-      { name: "description", content: "Get in touch with Quilim Restaurant in Kohinoor City, Faisalabad." },
-    ],
-  }),
-  component: ContactPage,
-});
 
 function ContactPage() {
   const [submitting, setSubmitting] = useState(false);
@@ -97,3 +87,5 @@ function ContactPage() {
     </Layout>
   );
 }
+
+export default ContactPage;
