@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "@/components/ui/sonner";
+import { RouteScrollReset } from "@/components/RouteScrollReset";
 import "./styles.css";
 
 import Index from "./routes/index";
@@ -15,6 +16,7 @@ import NotFound from "./routes/not-found";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
+      <RouteScrollReset />
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/about" element={<About />} />

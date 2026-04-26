@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,27 +13,36 @@ const links = [
 ] as const;
 
 export function Navbar() {
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 0);
     onScroll();
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Transparent only on home page when at the very top
+  const transparent = isHome && !scrolled;
+
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-background/85 backdrop-blur-md border-b border-border shadow-card"
-          : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ease-out ${
+        transparent
+          ? "bg-transparent"
+          : "bg-background/90 backdrop-blur-md border-b border-border shadow-card"
       }`}
     >
       <div className="container mx-auto px-4 lg:px-8 flex items-center justify-between h-20">
         <Link to="/" className="flex items-center gap-2 group">
-          <span className="font-serif text-3xl font-bold text-primary tracking-tight">
+          <span
+            className={`font-serif text-3xl font-bold tracking-tight transition-colors ${
+              transparent ? "text-white" : "text-primary"
+            }`}
+          >
             Quilim
           </span>
           <span className="hidden sm:block w-8 h-px bg-gold" />
@@ -51,12 +60,12 @@ export function Navbar() {
               className={({ isActive }) =>
                 `text-sm font-medium transition-colors relative py-1 ${
                   isActive
-                    ? scrolled
-                      ? "text-primary after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-0.5 after:bg-gold"
-                      : "text-gold after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-0.5 after:bg-primary"
-                    : scrolled
-                    ? "text-foreground/80 hover:text-primary"
-                    : "text-white hover:text-gold"
+                    ? transparent
+                      ? "text-gold after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-0.5 after:bg-primary"
+                      : "text-primary after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-0.5 after:bg-gold"
+                    : transparent
+                    ? "text-white hover:text-gold"
+                    : "text-foreground/80 hover:text-primary"
                 }`
               }
             >
@@ -66,27 +75,36 @@ export function Navbar() {
         </nav>
 
         <div className="hidden lg:block">
-          <Button asChild variant="default" className="bg-primary hover:bg-primary/90">
+          <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
             <Link to="/reservations">Book a Table</Link>
           </Button>
         </div>
 
         <button
           aria-label="Toggle menu"
-          className="lg:hidden p-2 text-foreground"
+          className={`lg:hidden p-2 transition-colors ${
+            transparent ? "text-white" : "text-foreground"
+          }`}
           onClick={() => setOpen((v) => !v)}
         >
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
 
-      {/* Mobile drawer */}
+      {/* Mobile drawer (slides from right) */}
+      {open && (
+        <div
+          onClick={() => setOpen(false)}
+          className="lg:hidden fixed inset-0 top-20 bg-black/40 z-40"
+          aria-hidden
+        />
+      )}
       <div
-        className={`lg:hidden overflow-hidden transition-all duration-300 bg-background border-b border-border ${
-          open ? "max-h-[500px]" : "max-h-0"
+        className={`lg:hidden fixed top-20 right-0 bottom-0 w-72 bg-background border-l border-border shadow-elegant z-50 transition-transform duration-300 ${
+          open ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <nav className="container mx-auto px-4 py-4 flex flex-col gap-1">
+        <nav className="p-4 flex flex-col gap-1">
           {links.map((l) => (
             <NavLink
               key={l.to}
@@ -94,15 +112,17 @@ export function Navbar() {
               end={l.to === "/"}
               onClick={() => setOpen(false)}
               className={({ isActive }) =>
-                `px-4 py-3 rounded-md transition-colors ${
-                  isActive ? "bg-accent text-primary font-medium" : "text-foreground hover:bg-accent"
+                `px-4 py-3 rounded-md transition-colors min-h-[44px] flex items-center ${
+                  isActive
+                    ? "bg-accent text-primary font-medium"
+                    : "text-foreground hover:bg-accent"
                 }`
               }
             >
               {l.label}
             </NavLink>
           ))}
-          <Button asChild className="mt-2 bg-primary hover:bg-primary/90">
+          <Button asChild className="mt-3 bg-primary hover:bg-primary/90 h-12 text-primary-foreground">
             <Link to="/reservations" onClick={() => setOpen(false)}>
               Book a Table
             </Link>

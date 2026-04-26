@@ -2,37 +2,52 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Star, Utensils, Clock, ChefHat, ArrowRight, Quote, MapPin } from "lucide-react";
+import { Star, Utensils, Clock, ChefHat, ArrowRight, Quote, MapPin, Award } from "lucide-react";
+import { usePageTitle } from "@/hooks/use-page-title";
 import heroImg from "@/assets/hero.jpg";
-import aboutImg from "@/assets/about.jpg";
+import interiorImg from "@/assets/interior.jpg";
 import dishParmesan from "@/assets/dish-parmesan.jpg";
 import dishPlatter from "@/assets/dish-platter.jpg";
-import dishKarahi from "@/assets/dish-karahi.jpg";
-import dishBbq from "@/assets/dish-bbq.jpg";
-import dishChinese from "@/assets/dish-chinese.jpg";
+import dishSwiss from "@/assets/dish-swiss.jpg";
 
 const dishes = [
   { name: "Parmesan Chicken", desc: "Pan-seared chicken in a velvety parmesan cream sauce — a Quilim favourite.", img: dishParmesan, tag: "Bestseller" },
-  { name: "Quilim Lunch Platter", desc: "Chicken biryani, curry, raita, salad and naan — all on one copper thali.", img: dishPlatter, tag: "Most Loved" },
-  { name: "Sizzling Chicken Karahi", desc: "Traditional desi karahi cooked in tomato, ginger and green chilies.", img: dishKarahi, tag: "Chef's Pick" },
-  { name: "Mixed BBQ Platter", desc: "Tikka, malai boti and seekh kebabs straight off the charcoal grill.", img: dishBbq },
-  { name: "Chicken Manchurian", desc: "Crispy chicken tossed in our signature sweet & tangy Chinese sauce.", img: dishChinese },
+  { name: "Quilim Lunch Platter", desc: "Egg fried rice, chicken drumsticks, manchurian and chowmein on one platter.", img: dishPlatter, tag: "Most Loved" },
+  { name: "Swiss Nipolo Chicken", desc: "Continental chicken with rich mushroom cream sauce — guests' favourite signature.", img: dishSwiss, tag: "Chef's Pick" },
 ];
 
 const features = [
+  { icon: Star, label: "4.6 / 5 Rating" },
   { icon: Utensils, label: "4,000+ Happy Guests" },
-  { icon: Star, label: "4.6 ★ Google Rating" },
-  { icon: Clock, label: "Open Daily · 11 AM – 12 AM" },
-  { icon: ChefHat, label: "Pakistani · Continental · Chinese" },
+  { icon: Clock, label: "Open 7 Days a Week" },
+  { icon: ChefHat, label: "Authentic Multi-Cuisine" },
 ];
 
-const reviews = [
-  { name: "Muhammad H.", text: "Truly one of the best restaurants in Faisalabad. The Parmesan Chicken never disappoints — great taste, great quantity.", rating: 5 },
-  { name: "Sana R.", text: "Quilim is honestly my all-time favourite. The ambiance is perfect and the staff goes above and beyond every single time.", rating: 5 },
-  { name: "Omar A.", text: "The Lunch Platter is a symphony of flavours. Perfectly portioned, beautifully presented and worth every rupee.", rating: 5 },
+type Review = {
+  name: string;
+  rating: number;
+  text: string;
+  meal?: string;
+  price?: string;
+  localGuide?: boolean;
+};
+
+const reviews: Review[] = [
+  { name: "Sawera Haroon", rating: 5, text: "Always had a perfect meal at Quilim. The food quality is consistently excellent and portion sizes are generous. The Parmesan Chicken never disappoints — highly recommended!", meal: "Dinner", localGuide: true },
+  { name: "Alishba Rajpoot", rating: 5, text: "Quilim is my all-time favourite in Faisalabad. The lunch platter, chicken karahi, tarragon steak — everything was full of flavor. The manager truly lives up to 'hospitality expert'!", meal: "Lunch", price: "Rs 2,000–3,000" },
+  { name: "Muhammad Shahbaz", rating: 4, text: "The Lunch Platter is a symphony of flavors — fluffy egg fried rice, crispy drumsticks, Manchurian, and chowmein. Excellent value at around PKR 1,000. A must-try.", meal: "Lunch", price: "Rs 500–1,000" },
+  { name: "Hashir Naeem", rating: 5, text: "Outstanding from start to finish. Fresh ingredients, authentic flavors, attentive service — and they offered us complimentary sweets! Quilim exceeds expectations in every way.", meal: "Dinner", localGuide: true },
+  { name: "Junaid Javaid", rating: 5, text: "Amazed by the food, service, and ambiance — everything was 10/10. Highly recommend the Swiss Nipolo Chicken, it was incredible.", meal: "Food: 5 · Service: 5 · Atmosphere: 5" },
+  { name: "Eisha Zahid", rating: 5, text: "Rich flavors, beautifully balanced dishes and an ambiance that elevates the entire experience. Truly unforgettable dining.", meal: "Dinner" },
+  { name: "Muhammad Zain Maqsood", rating: 5, text: "Great place for family time. Relaxed vibe and a delicious menu.", meal: "Dinner", price: "Rs 1,000–2,000" },
+  { name: "Samina Hussain", rating: 5, text: "My favourite restaurant ever — the customer service is impeccable and the food is so delicious!", meal: "Dinner", localGuide: true },
+  { name: "Abubakar Malik", rating: 5, text: "The karahi was full of rich flavor and perfectly cooked. Kababs were juicy and well-seasoned. Food served fresh and hot. Highly recommended for anyone who loves good desi food." },
 ];
+
+const initials = (n: string) => n.split(" ").map((p) => p[0]).slice(0, 2).join("").toUpperCase();
 
 function Index() {
+  usePageTitle("Quilim Restaurant — Fine Dining in Faisalabad");
   return (
     <Layout>
       {/* Hero */}
@@ -44,24 +59,24 @@ function Index() {
           width={1920}
           height={1080}
         />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,oklch(0_0_0/0.55)_0%,oklch(0_0_0/0.75)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,oklch(0_0_0/0.55)_0%,oklch(0_0_0/0.78)_100%)]" />
         <div className="relative z-10 px-4 max-w-4xl animate-fade-in-up">
           <span className="inline-flex items-center gap-2 text-gold text-xs md:text-sm uppercase tracking-[0.4em]">
             <MapPin className="h-3.5 w-3.5" /> Quilim · Faisalabad
           </span>
-          <h1 className="font-serif text-5xl md:text-7xl lg:text-[5.5rem] font-bold mt-5 leading-[1.05]">
+          <h1 className="font-serif font-bold mt-5 leading-[1.05]" style={{ fontSize: "clamp(2.25rem, 6vw, 5.5rem)" }}>
             Experience Fine Dining<br />
             <span className="text-gold">in Faisalabad</span>
           </h1>
-          <p className="mt-6 text-lg md:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-6 text-base md:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
             Home to 4,000+ satisfied guests and a 4.6-star dining experience —
             authentic Pakistani, Continental & Chinese cuisine served with warm hospitality.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="bg-gold text-gold-foreground hover:bg-gold/90 text-base px-9 h-12">
+            <Button asChild size="lg" className="bg-gold text-gold-foreground hover:bg-gold/90 text-base px-9 h-12 min-h-[48px]">
               <Link to="/reservations">Reserve a Table</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-primary text-base px-9 h-12">
+            <Button asChild size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-primary text-base px-9 h-12 min-h-[48px]">
               <Link to="/menu">View Our Menu</Link>
             </Button>
           </div>
@@ -78,7 +93,7 @@ function Index() {
       <section className="py-20 md:py-28 container mx-auto px-4 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="relative">
-            <img src={aboutImg} alt="Quilim dining room in Faisalabad" loading="lazy" className="rounded-lg shadow-elegant w-full h-[480px] object-cover" />
+            <img src={interiorImg} alt="Warm candlelit dining hall at Quilim Faisalabad" loading="lazy" className="rounded-lg shadow-elegant w-full h-[480px] object-cover" />
             <div className="absolute -bottom-6 -right-6 hidden md:block bg-gold text-gold-foreground p-6 rounded-lg shadow-card">
               <div className="font-serif text-4xl font-bold">10+</div>
               <div className="text-xs uppercase tracking-widest">Years of Excellence</div>
@@ -113,7 +128,7 @@ function Index() {
           <p className="text-muted-foreground max-w-xl mx-auto mb-12">The dishes our guests come back for, again and again.</p>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-7">
-            {dishes.slice(0, 3).map((d) => (
+            {dishes.map((d) => (
               <Card key={d.name} className="overflow-hidden hover-lift bg-card border-border p-0 group">
                 <div className="aspect-[4/3] overflow-hidden relative">
                   <img src={d.img} alt={d.name} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
@@ -142,7 +157,7 @@ function Index() {
         </div>
       </section>
 
-      {/* Why */}
+      {/* Stats */}
       <section className="py-20 container mx-auto px-4 lg:px-8">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((f) => (
@@ -150,7 +165,7 @@ function Index() {
               <div className="mx-auto w-16 h-16 rounded-full bg-gradient-gold grid place-items-center mb-4 shadow-card">
                 <f.icon className="h-7 w-7 text-primary" />
               </div>
-              <p className="font-serif text-lg text-foreground">{f.label}</p>
+              <p className="font-serif text-base md:text-lg text-foreground">{f.label}</p>
             </div>
           ))}
         </div>
@@ -183,11 +198,11 @@ function Index() {
             Book your table today and experience Faisalabad's finest dining.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="bg-gold text-gold-foreground hover:bg-gold/90 px-8 h-12">
+            <Button asChild size="lg" className="bg-gold text-gold-foreground hover:bg-gold/90 px-8 h-12 min-h-[48px]">
               <Link to="/reservations">Make a Reservation</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-primary h-12">
-              <a href="tel:+924418540373">Call +92 41 8540373</a>
+            <Button asChild size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white hover:text-primary h-12 min-h-[48px]">
+              <a href="tel:+924118540373">Call +92 41 8540373</a>
             </Button>
           </div>
         </div>
@@ -199,22 +214,39 @@ function Index() {
         <h2 className="font-serif text-4xl md:text-5xl font-bold text-primary mt-3">What Our Guests Say</h2>
         <div className="mx-auto w-16 h-px bg-gold mt-5 mb-12" />
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
           {reviews.map((r) => (
-            <Card key={r.name} className="p-8 text-left bg-card hover-lift">
-              <Quote className="h-8 w-8 text-gold mb-4" />
-              <div className="flex gap-1 mb-3">
-                {[...Array(r.rating)].map((_, i) => <Star key={i} className="h-4 w-4 fill-gold text-gold" />)}
+            <Card key={r.name} className="p-6 bg-card hover-lift flex flex-col">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-gold grid place-items-center text-primary font-serif font-bold text-lg shrink-0">
+                  {initials(r.name)}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <p className="font-serif text-primary font-semibold truncate">{r.name}</p>
+                    {r.localGuide && (
+                      <span className="inline-flex items-center gap-1 text-[9px] uppercase tracking-wider bg-gold/15 text-gold-foreground border border-gold/40 rounded-full px-2 py-0.5">
+                        <Award className="h-2.5 w-2.5 text-gold" /> Local Guide
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex gap-0.5 mt-1">
+                    {[...Array(r.rating)].map((_, i) => <Star key={i} className="h-3.5 w-3.5 fill-gold text-gold" />)}
+                  </div>
+                </div>
               </div>
-              <p className="text-foreground/80 italic leading-relaxed">"{r.text}"</p>
-              <div className="mt-6 pt-5 border-t border-border flex items-center justify-between">
-                <p className="font-serif text-primary font-semibold">— {r.name}</p>
-                <span className="text-[10px] uppercase tracking-wider text-muted-foreground">Google Review</span>
+              <Quote className="h-5 w-5 text-gold/60 mb-2" />
+              <p className="text-foreground/80 text-sm leading-relaxed flex-1">"{r.text}"</p>
+              <div className="mt-4 pt-4 border-t border-border flex items-center gap-2 flex-wrap">
+                {r.meal && <span className="text-[10px] uppercase tracking-wider text-muted-foreground bg-secondary/60 px-2 py-1 rounded">{r.meal}</span>}
+                {r.price && <span className="text-[10px] uppercase tracking-wider text-muted-foreground bg-secondary/60 px-2 py-1 rounded">{r.price}</span>}
+                <span className="ml-auto text-[10px] uppercase tracking-wider text-muted-foreground">Google Review</span>
               </div>
             </Card>
           ))}
         </div>
       </section>
+
     </Layout>
   );
 }

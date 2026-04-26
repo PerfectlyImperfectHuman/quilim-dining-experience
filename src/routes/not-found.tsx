@@ -1,23 +1,24 @@
 import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { usePageTitle } from "@/hooks/use-page-title";
+import logo from "@/assets/quilim-logo.jpg";
 
-export default function NotFound() {
+function NotFound() {
+  usePageTitle("Page Not Found — Quilim Restaurant");
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+    <div className="min-h-screen grid place-items-center bg-background px-6 text-center">
+      <div className="max-w-md">
+        <img src={logo} alt="Quilim Restaurant" className="mx-auto w-32 h-32 rounded-full object-cover shadow-elegant mb-8" />
+        <h1 className="font-serif text-5xl text-primary font-bold">404</h1>
+        <p className="text-xl text-foreground mt-4 font-serif">
+          This table doesn't exist — but great food does.
         </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Go home
-          </Link>
-        </div>
+        <Button asChild className="mt-8 bg-primary hover:bg-primary/90 h-12 px-8">
+          <Link to="/">Back to Home</Link>
+        </Button>
       </div>
     </div>
   );
 }
+
+export default NotFound;
