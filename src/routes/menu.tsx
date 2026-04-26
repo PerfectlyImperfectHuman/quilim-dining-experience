@@ -1,110 +1,363 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Layout } from "@/components/Layout";
 import { PageHero } from "@/components/PageHero";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
-import { ChefHat, Flame } from "lucide-react";
+import { ChefHat, Flame, Search, Star } from "lucide-react";
+import { usePageTitle } from "@/hooks/use-page-title";
+
 import dishParmesan from "@/assets/dish-parmesan.jpg";
 import dishPlatter from "@/assets/dish-platter.jpg";
 import dishSwiss from "@/assets/dish-swiss.jpg";
 import dishKarahi from "@/assets/dish-karahi.jpg";
 import dishBbq from "@/assets/dish-bbq.jpg";
 import dishChinese from "@/assets/dish-chinese.jpg";
+import dishTarragon from "@/assets/dish-tarragon.jpg";
+import dishSteak from "@/assets/dish-steak.jpg";
+import dishMutton from "@/assets/dish-mutton.jpg";
+import dishBrownie from "@/assets/dish-brownie.jpg";
+import dishColdCoffee from "@/assets/dish-coldcoffee.jpg";
+import dishMintMargarita from "@/assets/dish-mintmargarita.jpg";
+import dishNaan from "@/assets/dish-naan.jpg";
+import dishSoup from "@/assets/dish-soup.jpg";
+import dishAppetizer from "@/assets/dish-appetizer.jpg";
+import dishRice from "@/assets/dish-rice.jpg";
+import dishSalad from "@/assets/dish-salad.jpg";
 
-type Tag = "Bestseller" | "Chef's Pick" | "Spicy" | "New";
-type Item = { name: string; desc: string; price: string; img: string; tag?: Tag };
+type Tag = "Bestseller" | "Chef's Pick" | "Spicy";
+type Item = { name: string; price: string; img: string; tag?: Tag };
 type Section = { id: string; label: string; items: Item[] };
+
+const PIC = {
+  app: dishAppetizer, soup: dishSoup, chinese: dishChinese, rice: dishRice,
+  cont: dishParmesan, thai: dishChinese, pak: dishKarahi, mutton: dishMutton,
+  bbq: dishBbq, naan: dishNaan, bev: dishMintMargarita, salad: dishSalad,
+  dessert: dishBrownie,
+};
 
 const sections: Section[] = [
   {
-    id: "specials", label: "Chef's Specials", items: [
-      { name: "Parmesan Chicken", desc: "Pan-seared chicken in a creamy parmesan velouté with sautéed vegetables.", price: "PKR 1,950", img: dishParmesan, tag: "Bestseller" },
-      { name: "Quilim Lunch Platter", desc: "Chicken biryani, curry, raita, salad and naan — served on a copper thali.", price: "PKR 1,550", img: dishPlatter, tag: "Chef's Pick" },
-      { name: "Cordon Bleu", desc: "Crispy chicken stuffed with smoked ham and gruyère cheese.", price: "PKR 2,150", img: dishParmesan },
+    id: "appetizers", label: "Appetizers", items: [
+      { name: "Wasabi Crusted Fish (10 pcs)", price: "PKR 599", img: PIC.app },
+      { name: "Fried Fish (3 pcs)", price: "PKR 599", img: PIC.app },
+      { name: "Wasabi Prawn (8 pcs)", price: "PKR 899", img: PIC.app },
+      { name: "Butter Fried Prawn (8 pcs)", price: "PKR 899", img: PIC.app },
+      { name: "Stuffed Cheese Prawn (8 pcs)", price: "PKR 899", img: PIC.app },
+      { name: "Finger Fish (10 pcs)", price: "PKR 599", img: PIC.app },
+      { name: "Cheese Fried Chicken (10 pcs)", price: "PKR 569", img: PIC.app },
+      { name: "Crunch Chicken (10 pcs)", price: "PKR 569", img: PIC.app },
+      { name: "Tempura Chicken (10 pcs)", price: "PKR 599", img: PIC.app },
+      { name: "Chicken Cheese Mint Roll", price: "PKR 599", img: PIC.app },
+      { name: "Chicken Bamboo Stick", price: "PKR 599", img: PIC.app },
+      { name: "Chicken Honey Wings", price: "PKR 399", img: PIC.app },
+      { name: "Chicken Wonton", price: "PKR 429", img: PIC.app },
+      { name: "Dhaka Chicken", price: "PKR 399", img: PIC.app },
+      { name: "Stuffed Cheese Potato", price: "PKR 399", img: PIC.app },
+      { name: "Chicken Quesadillas", price: "PKR 499", img: PIC.app },
+      { name: "Chicken Drum Stick (10 pcs)", price: "PKR 599", img: PIC.app },
+      { name: "Doritos Nachos", price: "PKR 399", img: PIC.app },
+      { name: "Fish Cracker", price: "PKR 179", img: PIC.app },
+      { name: "French Fries", price: "PKR 569", img: PIC.app },
     ],
   },
   {
-    id: "continental", label: "Continental", items: [
-      { name: "Swiss Nipolo Chicken", desc: "Signature continental chicken with rich mushroom cream sauce.", price: "PKR 1,850", img: dishSwiss, tag: "Chef's Pick" },
-      { name: "Chicken Stroganoff", desc: "Tender chicken in sour cream and mushroom gravy with rice.", price: "PKR 1,750", img: dishSwiss },
-      { name: "Grilled Fish Fillet", desc: "Lemon-butter grilled fish with steamed seasonal vegetables.", price: "PKR 2,050", img: dishParmesan },
-      { name: "Beef Steak (Black Pepper)", desc: "Tender sirloin in our house black-pepper sauce, served with fries.", price: "PKR 2,650", img: dishParmesan, tag: "Bestseller" },
+    id: "soups", label: "Soups", items: [
+      { name: "Quilim Special Soup", price: "PKR 509", img: PIC.soup, tag: "Chef's Pick" },
+      { name: "Red Szechuan Soup", price: "PKR 499", img: PIC.soup },
+      { name: "Hot & Sour Soup", price: "PKR 449", img: PIC.soup },
+      { name: "Seafood Chowder", price: "PKR 509", img: PIC.soup },
+      { name: "Thai Soup", price: "PKR 429", img: PIC.soup },
+      { name: "Chicken Corn Soup", price: "PKR 429", img: PIC.soup },
+      { name: "Chicken Vegetable Soup", price: "PKR 429", img: PIC.soup },
+      { name: "19B Soup", price: "PKR 499", img: PIC.soup },
     ],
   },
   {
     id: "chinese", label: "Chinese", items: [
-      { name: "Chicken Manchurian", desc: "Crispy chicken cubes tossed in sweet & tangy Manchurian gravy.", price: "PKR 1,250", img: dishChinese, tag: "Bestseller" },
-      { name: "Kung Pao Chicken", desc: "Wok-fried chicken with peanuts, dried chilies and bell peppers.", price: "PKR 1,350", img: dishChinese, tag: "Spicy" },
-      { name: "Dynamite Chicken", desc: "Crispy battered chicken in our signature spicy creamy sauce.", price: "PKR 1,450", img: dishChinese, tag: "Chef's Pick" },
-      { name: "Chicken Chowmein", desc: "Wok-tossed noodles with chicken, vegetables and soy.", price: "PKR 1,150", img: dishChinese },
-      { name: "Egg Fried Rice", desc: "Classic wok-fried rice with egg and spring onions.", price: "PKR 850", img: dishChinese },
-      { name: "Hot & Sour Soup", desc: "Tangy chicken soup with mushrooms and bamboo shoots.", price: "PKR 550", img: dishChinese },
+      { name: "Chicken Manchurian", price: "PKR 499", img: dishChinese, tag: "Chef's Pick" },
+      { name: "Black Pepper Chicken with Pineapple", price: "PKR 499", img: PIC.chinese },
+      { name: "Chicken with Pineapple", price: "PKR 499", img: PIC.chinese },
+      { name: "Chicken Almond", price: "PKR 499", img: PIC.chinese },
+      { name: "Kung Pao Chicken", price: "PKR 499", img: PIC.chinese, tag: "Spicy" },
+      { name: "Garlic Chicken with Butter Mushroom", price: "PKR 499", img: PIC.chinese },
+      { name: "Lemon Chicken", price: "PKR 499", img: PIC.chinese },
+      { name: "Szechuan Chicken", price: "PKR 499", img: PIC.chinese, tag: "Spicy" },
+      { name: "Whole Chicken Chilli", price: "PKR 639", img: PIC.chinese, tag: "Spicy" },
+      { name: "Mongolian Chicken", price: "PKR 499", img: PIC.chinese },
+      { name: "Chicken Chilli Onion", price: "PKR 499", img: PIC.chinese },
+      { name: "Chicken Vegetable", price: "PKR 399", img: PIC.chinese },
+      { name: "Chicken Chilli Dry", price: "PKR 479", img: PIC.chinese },
     ],
   },
   {
-    id: "pakistani", label: "Pakistani / Desi", items: [
-      { name: "Chicken Karahi (Half)", desc: "Traditional spiced chicken karahi in tomato and ginger gravy.", price: "PKR 1,650", img: dishKarahi, tag: "Bestseller" },
-      { name: "Chicken Karahi (Full)", desc: "Full karahi — perfect for sharing, served with naan.", price: "PKR 2,950", img: dishKarahi },
-      { name: "Mutton Karahi", desc: "Slow-cooked mutton in spices, ginger and green chili.", price: "PKR 3,450", img: dishKarahi, tag: "Chef's Pick" },
-      { name: "Chicken Biryani", desc: "Aromatic basmati rice layered with spiced chicken — served with raita.", price: "PKR 850", img: dishPlatter, tag: "Bestseller" },
-      { name: "Daal Makhani", desc: "Slow-cooked black lentils finished with cream and butter.", price: "PKR 750", img: dishPlatter },
+    id: "rice", label: "Rice & Chowmein", items: [
+      { name: "Quilim Special Rice", price: "PKR 349", img: PIC.rice },
+      { name: "Garlic Rice", price: "PKR 399", img: PIC.rice },
+      { name: "Chicken Fried Rice", price: "PKR 349", img: PIC.rice, tag: "Bestseller" },
+      { name: "Egg Fried Rice", price: "PKR 339", img: PIC.rice, tag: "Bestseller" },
+      { name: "Chicken Masala Rice", price: "PKR 349", img: PIC.rice },
+      { name: "Lemon Coriander Rice", price: "PKR 399", img: PIC.rice },
+      { name: "Butter Steamed Rice", price: "PKR 329", img: PIC.rice },
+      { name: "Thai Special Rice", price: "PKR 349", img: PIC.rice },
+      { name: "Special Chowmein", price: "PKR 399", img: PIC.rice },
+      { name: "Chicken Chowmein", price: "PKR 369", img: PIC.rice },
+      { name: "American Chop Suey", price: "PKR 369", img: PIC.rice },
+      { name: "Vegetable Chop Suey", price: "PKR 369", img: PIC.rice },
+    ],
+  },
+  {
+    id: "continental", label: "Continental", items: [
+      { name: "Quilim Special Steak", price: "PKR 649", img: dishSteak, tag: "Chef's Pick" },
+      { name: "Combination Steak", price: "PKR 649", img: dishSteak },
+      { name: "Tarragon Steak", price: "PKR 649", img: dishTarragon, tag: "Chef's Pick" },
+      { name: "Mexican Steak", price: "PKR 539", img: dishSteak, tag: "Spicy" },
+      { name: "Jalapeño Steak", price: "PKR 649", img: dishSteak, tag: "Spicy" },
+      { name: "New York Steak", price: "PKR 649", img: dishSteak },
+      { name: "Mushroom Steak", price: "PKR 649", img: dishSteak },
+      { name: "Pepper Steak", price: "PKR 649", img: dishSteak },
+      { name: "Beef Steak", price: "PKR 749", img: dishSteak },
+      { name: "Fish Steak", price: "PKR 749", img: dishSteak },
+      { name: "Stuffed Chicken", price: "PKR 649", img: PIC.cont },
+      { name: "Italian Chicken", price: "PKR 629", img: PIC.cont },
+      { name: "Teriyaki Chicken", price: "PKR 599", img: PIC.cont },
+      { name: "Chicken Tapanaki", price: "PKR 599", img: PIC.cont },
+      { name: "Coconut Chicken", price: "PKR 599", img: PIC.cont },
+      { name: "Parmesan Chicken", price: "PKR 599", img: dishParmesan, tag: "Bestseller" },
+      { name: "Swiss Nipolo Chicken", price: "PKR 599", img: dishSwiss, tag: "Chef's Pick" },
+      { name: "Quilim Special Pasta", price: "PKR 499", img: PIC.cont },
+      { name: "Rattlesnake Pasta", price: "PKR 499", img: PIC.cont, tag: "Spicy" },
+      { name: "Tikka Pasta", price: "PKR 499", img: PIC.cont },
+    ],
+  },
+  {
+    id: "thai", label: "Thai Cuisine", items: [
+      { name: "Thai Sweet Chicken", price: "PKR 499", img: PIC.thai },
+      { name: "Oyster Chicken", price: "PKR 499", img: PIC.thai },
+      { name: "Chicken Green Curry", price: "PKR 529", img: PIC.thai },
+      { name: "Chicken Cashew Nut", price: "PKR 519", img: PIC.thai },
+      { name: "Sweet & Sour Fish", price: "PKR 599", img: PIC.thai },
+      { name: "Garlic Fish", price: "PKR 599", img: PIC.thai },
+    ],
+  },
+  {
+    id: "pakistani", label: "Pakistani Traditional", items: [
+      { name: "Chicken Mughlai Handi", price: "PKR 795", img: PIC.pak },
+      { name: "Chicken Hyderabadi Handi", price: "PKR 795", img: PIC.pak },
+      { name: "Chicken Kashmiri Handi", price: "PKR 795", img: PIC.pak },
+      { name: "Chicken Handi", price: "PKR 795", img: PIC.pak },
+      { name: "Chicken Madrasi Handi", price: "PKR 795", img: PIC.pak, tag: "Spicy" },
+      { name: "Chicken Karahi", price: "PKR 745", img: dishKarahi, tag: "Chef's Pick" },
+      { name: "Chicken Bombay Masala", price: "PKR 795", img: PIC.pak },
+      { name: "Chicken Hara Masala", price: "PKR 775", img: PIC.pak },
+      { name: "Chicken Kabab Masala", price: "PKR 599", img: PIC.pak },
+      { name: "Chicken Tawa Qeema", price: "PKR 669", img: PIC.pak },
+      { name: "Chicken Do Pyaza", price: "PKR 669", img: PIC.pak },
+      { name: "Chicken Jalfrezi", price: "PKR 499", img: PIC.pak },
+      { name: "Chicken Ginger", price: "PKR 499", img: PIC.pak },
+      { name: "Mix Vegetable", price: "PKR 299", img: PIC.pak },
+      { name: "Dal Makhni", price: "PKR 299", img: PIC.pak },
+    ],
+  },
+  {
+    id: "mutton", label: "Mutton Lovers", items: [
+      { name: "Mutton Karahi", price: "PKR 1,395", img: dishMutton, tag: "Chef's Pick" },
+      { name: "Mutton Handi", price: "PKR 1,395", img: dishMutton },
+      { name: "Mutton Mughlai Handi", price: "PKR 1,395", img: dishMutton },
+      { name: "Mutton Achari Handi", price: "PKR 1,395", img: dishMutton },
+      { name: "Mutton Makhni Handi", price: "PKR 1,395", img: dishMutton },
+      { name: "Mutton Green Chilli Lemon", price: "PKR 1,395", img: dishMutton, tag: "Spicy" },
+      { name: "Brain Masala", price: "PKR 649", img: dishMutton },
+      { name: "Mutton Kabab Masala", price: "PKR 649", img: dishMutton },
     ],
   },
   {
     id: "bbq", label: "BBQ & Grill", items: [
-      { name: "Mixed BBQ Platter", desc: "Chicken tikka, malai boti, seekh kebab — straight off the grill.", price: "PKR 2,450", img: dishBbq, tag: "Bestseller" },
-      { name: "Chicken Tikka", desc: "Marinated chicken char-grilled to smoky perfection.", price: "PKR 950", img: dishBbq },
-      { name: "Malai Boti", desc: "Creamy, tender chicken boti grilled over charcoal.", price: "PKR 1,150", img: dishBbq, tag: "Chef's Pick" },
-      { name: "Seekh Kebab (4 pcs)", desc: "Spiced minced beef skewers grilled fresh.", price: "PKR 1,050", img: dishBbq },
+      { name: "Couple Platter (Chicken Kabab, Beef Kabab, Chicken Boti, Malai Boti, Kalmi Tikka, Fish Tikka with Rice)", price: "PKR 1,199", img: dishBbq, tag: "Chef's Pick" },
+      { name: "Family Platter (with Rice, larger portions)", price: "PKR 1,999", img: dishBbq, tag: "Chef's Pick" },
+      { name: "Special Kalmi Tikka (5 pcs)", price: "PKR 499", img: PIC.bbq },
+      { name: "Fish Tikka (10 pcs)", price: "PKR 849", img: PIC.bbq },
+      { name: "Chicken Afghani Boti (16 pcs)", price: "PKR 499", img: PIC.bbq },
+      { name: "Shish Tawook Boti (16 pcs)", price: "PKR 499", img: PIC.bbq },
+      { name: "Chicken Herb Boti (16 pcs)", price: "PKR 499", img: PIC.bbq },
+      { name: "Chicken Malai Boti (16 pcs)", price: "PKR 499", img: PIC.bbq, tag: "Bestseller" },
+      { name: "Chicken Lahori Boti (16 pcs)", price: "PKR 429", img: PIC.bbq },
+      { name: "Turkish Boti (16 pcs)", price: "PKR 499", img: PIC.bbq },
+      { name: "Chicken Kasturi Boti (16 pcs)", price: "PKR 499", img: PIC.bbq },
+      { name: "Chicken Tikka", price: "PKR 199", img: PIC.bbq },
+      { name: "Mutton Chops (6 pcs)", price: "PKR 995", img: PIC.bbq },
+      { name: "Mutton Kabab (6 pcs)", price: "PKR 549", img: PIC.bbq },
+      { name: "Chicken Reshmi Kabab (6 pcs)", price: "PKR 499", img: PIC.bbq },
+      { name: "Chicken Kasturi Kabab (6 pcs)", price: "PKR 499", img: PIC.bbq },
+      { name: "Chicken Kabab (6 pcs)", price: "PKR 449", img: PIC.bbq, tag: "Bestseller" },
+      { name: "Beef Seekh Kabab (6 pcs)", price: "PKR 399", img: PIC.bbq },
     ],
   },
   {
-    id: "starters", label: "Starters & Soups", items: [
-      { name: "Chef's Special Soup", desc: "Hearty chicken corn soup with herbs and pepper.", price: "PKR 550", img: dishSwiss },
-      { name: "Crispy Chicken Wings", desc: "Golden fried wings with garlic mayo dip.", price: "PKR 950", img: dishParmesan },
-      { name: "Chicken Spring Rolls (4)", desc: "Crispy rolls stuffed with chicken & vegetables.", price: "PKR 650", img: dishChinese },
+    id: "tandoor", label: "Tandoor", items: [
+      { name: "Cheese Naan", price: "PKR 149", img: PIC.naan },
+      { name: "Chicken Naan", price: "PKR 149", img: PIC.naan },
+      { name: "Garlic Naan", price: "PKR 49", img: PIC.naan },
+      { name: "Kalonji Naan", price: "PKR 49", img: PIC.naan },
+      { name: "Hara Spicy Naan", price: "PKR 49", img: PIC.naan },
+      { name: "Roghni Naan", price: "PKR 35", img: PIC.naan },
+      { name: "Tandoori Paratha", price: "PKR 49", img: PIC.naan },
+      { name: "Achari Paratha", price: "PKR 49", img: PIC.naan },
+      { name: "Tandoori Roti (per piece)", price: "PKR 39", img: PIC.naan },
     ],
   },
   {
-    id: "drinks", label: "Beverages & Desserts", items: [
-      { name: "Fresh Lime Mint", desc: "Refreshing lime with crushed mint leaves.", price: "PKR 350", img: dishSwiss },
-      { name: "Mango Shake", desc: "Thick, creamy fresh mango shake (seasonal).", price: "PKR 450", img: dishSwiss },
-      { name: "Chocolate Lava Cake", desc: "Warm molten-centre cake with vanilla ice cream.", price: "PKR 650", img: dishParmesan, tag: "Bestseller" },
-      { name: "Crème Brûlée", desc: "Classic vanilla custard with caramelised sugar top.", price: "PKR 550", img: dishParmesan },
+    id: "beverages", label: "Beverages", items: [
+      { name: "Piña Colada", price: "PKR 169", img: PIC.bev },
+      { name: "Blue Lagoon", price: "PKR 169", img: PIC.bev },
+      { name: "Mint Margarita", price: "PKR 139", img: dishMintMargarita },
+      { name: "My Thai", price: "PKR 169", img: PIC.bev },
+      { name: "Cold Coffee", price: "PKR 179", img: dishColdCoffee, tag: "Bestseller" },
+      { name: "Fresh Juice (Seasonal)", price: "PKR 169", img: PIC.bev },
+      { name: "Soft Drink", price: "PKR 39", img: PIC.bev },
+      { name: "Diet Drink", price: "PKR 89", img: PIC.bev },
+      { name: "Mineral Water (Large)", price: "PKR 79", img: PIC.bev },
+    ],
+  },
+  {
+    id: "salads", label: "Salads", items: [
+      { name: "Italian Salad", price: "PKR 259", img: PIC.salad },
+      { name: "World Food Salad", price: "PKR 249", img: PIC.salad },
+      { name: "Russian Salad", price: "PKR 199", img: PIC.salad },
+      { name: "Fruit Salad", price: "PKR 199", img: PIC.salad },
+      { name: "Chicken Pineapple Salad", price: "PKR 199", img: PIC.salad },
+      { name: "Fresh Green Salad", price: "PKR 69", img: PIC.salad },
+      { name: "Kachumber Salad", price: "PKR 89", img: PIC.salad },
+      { name: "Plain Raita", price: "PKR 59", img: PIC.salad },
+      { name: "Mint Raita", price: "PKR 59", img: PIC.salad },
+    ],
+  },
+  {
+    id: "desserts", label: "Desserts & Hot Drinks", items: [
+      { name: "Bread Pudding", price: "PKR 99", img: PIC.dessert },
+      { name: "Chocolate Brownie with Cream", price: "PKR 209", img: dishBrownie, tag: "Bestseller" },
+      { name: "Tutti Frutti", price: "PKR 169", img: PIC.dessert },
+      { name: "Flavored Ice Cream", price: "PKR 109", img: PIC.dessert },
+      { name: "Arabic Basbousa", price: "PKR 99", img: PIC.dessert },
+      { name: "Cappuccino", price: "PKR 99", img: PIC.dessert },
+      { name: "Mix Tea", price: "PKR 69", img: PIC.dessert },
+      { name: "Green Tea", price: "PKR 59", img: PIC.dessert },
     ],
   },
 ];
 
+const popularPicks = [
+  { name: "Tarragon Steak", price: "PKR 649", img: dishTarragon },
+  { name: "Chicken Karahi", price: "PKR 745", img: dishKarahi },
+  { name: "Couple Platter", price: "PKR 1,199", img: dishBbq },
+  { name: "Chicken Malai Boti", price: "PKR 499", img: dishBbq },
+  { name: "Chicken Manchurian", price: "PKR 499", img: dishChinese },
+  { name: "Chocolate Brownie", price: "PKR 209", img: dishBrownie },
+];
+
 const tagStyle = (tag: Tag) => {
   switch (tag) {
-    case "Bestseller": return "bg-gold text-gold-foreground";
-    case "Chef's Pick": return "bg-primary text-primary-foreground";
-    case "Spicy": return "bg-destructive text-destructive-foreground";
-    case "New": return "bg-accent-foreground text-accent";
+    case "Bestseller": return "bg-destructive text-destructive-foreground";
+    case "Chef's Pick": return "bg-gold text-gold-foreground";
+    case "Spicy": return "bg-primary text-primary-foreground";
   }
 };
 
 function MenuPage() {
+  usePageTitle("Our Menu — Quilim Restaurant Faisalabad");
   const [active, setActive] = useState(sections[0].id);
+  const [query, setQuery] = useState("");
+
+  const filteredSections = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return sections;
+    return sections
+      .map((s) => ({ ...s, items: s.items.filter((it) => it.name.toLowerCase().includes(q)) }))
+      .filter((s) => s.items.length > 0);
+  }, [query]);
+
+  const scrollToSection = (id: string) => {
+    setActive(id);
+    const el = document.getElementById(id);
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - 160;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
+  };
+
   return (
     <Layout>
       <PageHero title="Our Menu" subtitle="Crafted with passion · Served with pride" />
 
-      <section className="container mx-auto px-4 lg:px-8 py-16">
-        <div className="grid lg:grid-cols-[260px_1fr] gap-12">
-          {/* Sidebar / tabs */}
-          <aside className="lg:sticky lg:top-28 lg:self-start">
-            <div className="flex lg:flex-col gap-2 overflow-x-auto pb-2 lg:pb-0">
+      <section className="container mx-auto px-4 lg:px-8 py-10 md:py-16">
+        {/* Search + Popular Picks */}
+        <div className="max-w-2xl mx-auto mb-10">
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+            <Input
+              type="search"
+              placeholder="Search dishes, categories..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="pl-12 h-12 text-base"
+            />
+          </div>
+        </div>
+
+        {!query && (
+          <div className="mb-12">
+            <div className="flex items-baseline justify-between mb-5">
+              <h2 className="font-serif text-2xl md:text-3xl text-primary font-bold flex items-center gap-2">
+                <Star className="h-5 w-5 fill-gold text-gold" /> Popular Picks
+              </h2>
+              <span className="text-xs text-muted-foreground hidden sm:inline">Most ordered by guests</span>
+            </div>
+            <div className="flex gap-4 overflow-x-auto pb-3 -mx-4 px-4 snap-x">
+              {popularPicks.map((p) => (
+                <Card key={p.name} className="shrink-0 w-60 sm:w-72 overflow-hidden bg-card hover-lift snap-start p-0">
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <img src={p.img} alt={p.name} loading="lazy" className="w-full h-full object-cover" />
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-serif text-lg text-foreground font-semibold">{p.name}</h3>
+                    <p className="text-primary font-bold mt-1 font-serif">{p.price}</p>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Mobile sticky pills */}
+        <div className="lg:hidden sticky top-20 -mx-4 px-4 py-3 bg-background/95 backdrop-blur z-30 border-y border-border mb-6">
+          <div className="flex gap-2 overflow-x-auto -mx-4 px-4 snap-x">
+            {sections.map((s) => (
+              <button
+                key={s.id}
+                onClick={() => scrollToSection(s.id)}
+                className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all border whitespace-nowrap snap-start ${
+                  active === s.id
+                    ? "bg-primary text-primary-foreground border-primary"
+                    : "bg-card text-foreground border-border"
+                }`}
+              >
+                {s.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid lg:grid-cols-[240px_1fr] gap-12">
+          {/* Desktop sidebar */}
+          <aside className="hidden lg:block lg:sticky lg:top-28 lg:self-start">
+            <div className="flex flex-col gap-1.5">
               {sections.map((s) => (
                 <button
                   key={s.id}
-                  onClick={() => {
-                    setActive(s.id);
-                    document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-                  }}
-                  className={`shrink-0 lg:shrink text-left px-4 py-3 rounded-md text-sm font-medium transition-all border ${
+                  onClick={() => scrollToSection(s.id)}
+                  className={`text-left px-4 py-3 rounded-md text-sm font-medium transition-all border ${
                     active === s.id
                       ? "bg-primary text-primary-foreground border-primary shadow-card"
                       : "bg-card text-foreground border-border hover:border-gold"
@@ -116,14 +369,17 @@ function MenuPage() {
             </div>
           </aside>
 
-          <div className="space-y-20">
-            {sections.map((s) => (
-              <div key={s.id} id={s.id} className="scroll-mt-28">
-                <div className="flex items-baseline gap-4 mb-8">
-                  <h2 className="font-serif text-3xl md:text-4xl text-primary font-bold">{s.label}</h2>
+          <div className="space-y-16 min-w-0">
+            {filteredSections.length === 0 && (
+              <p className="text-center text-muted-foreground py-20">No dishes match "{query}". Try another search.</p>
+            )}
+            {filteredSections.map((s) => (
+              <div key={s.id} id={s.id} className="scroll-mt-40">
+                <div className="flex items-baseline gap-4 mb-7">
+                  <h2 className="font-serif text-2xl md:text-3xl lg:text-4xl text-primary font-bold">{s.label}</h2>
                   <div className="flex-1 h-px bg-gold/40" />
                 </div>
-                <div className="grid sm:grid-cols-2 gap-6">
+                <div className="grid sm:grid-cols-2 gap-5">
                   {s.items.map((item) => (
                     <Card key={item.name} className="flex gap-4 p-4 hover-lift bg-card overflow-hidden border-border/60">
                       <div className="relative shrink-0">
@@ -131,7 +387,7 @@ function MenuPage() {
                           src={item.img}
                           alt={item.name}
                           loading="lazy"
-                          className="w-28 h-28 md:w-32 md:h-32 object-cover rounded-md"
+                          className="w-24 h-24 sm:w-28 sm:h-28 object-cover rounded-md"
                         />
                         {item.tag && (
                           <Badge className={`absolute -top-2 -left-2 ${tagStyle(item.tag)} text-[9px] uppercase tracking-wider px-2 py-0.5 shadow-card flex items-center gap-1`}>
@@ -142,9 +398,9 @@ function MenuPage() {
                         )}
                       </div>
                       <div className="flex-1 min-w-0 flex flex-col">
-                        <h3 className="font-serif text-lg text-foreground font-semibold leading-tight">{item.name}</h3>
-                        <p className="text-sm text-muted-foreground mt-1.5 line-clamp-2 flex-1">{item.desc}</p>
-                        <p className="mt-3 text-primary font-bold text-lg font-serif">{item.price}</p>
+                        <h3 className="font-serif text-base sm:text-lg text-foreground font-semibold leading-tight">{item.name}</h3>
+                        <div className="flex-1" />
+                        <p className="mt-3 text-primary font-bold text-base sm:text-lg font-serif">{item.price}</p>
                       </div>
                     </Card>
                   ))}
@@ -155,17 +411,17 @@ function MenuPage() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-20 text-center bg-secondary/40 rounded-lg p-10">
-          <h3 className="font-serif text-3xl text-primary font-bold">Ready to Taste It All?</h3>
+        <div className="mt-20 text-center bg-secondary/40 rounded-lg p-8 md:p-10">
+          <h3 className="font-serif text-2xl md:text-3xl text-primary font-bold">Ready to Taste It All?</h3>
           <p className="text-muted-foreground mt-3 max-w-lg mx-auto">
             Reserve your table at Quilim Faisalabad today — or call us to order.
           </p>
           <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3">
-            <Button asChild className="bg-primary hover:bg-primary/90 h-12 px-8">
+            <Button asChild className="bg-primary hover:bg-primary/90 h-12 px-8 min-h-[48px]">
               <Link to="/reservations">Reserve a Table</Link>
             </Button>
-            <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground h-12 px-8">
-              <a href="tel:+924418540373">Call +92 41 8540373</a>
+            <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground h-12 px-8 min-h-[48px]">
+              <a href="tel:+924118540373">Call +92 41 8540373</a>
             </Button>
           </div>
         </div>
