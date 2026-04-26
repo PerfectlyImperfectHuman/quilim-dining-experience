@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Instagram, Facebook, MessageCircle, Phone, MapPin, Clock } from "lucide-react";
+import { FACEBOOK_URL, INSTAGRAM_URL, WHATSAPP_URL } from "@/lib/links";
 
 export function Footer() {
   return (
@@ -14,13 +15,13 @@ export function Footer() {
             Fine Dining in the Heart of <span className="text-gold">Faisalabad</span> — Pakistani · Continental · Chinese.
           </p>
           <div className="flex gap-3 mt-5">
-            <a href="https://www.facebook.com/Quilim.fsd" target="_blank" rel="noreferrer" aria-label="Facebook" className="w-10 h-10 rounded-full border border-white/20 grid place-items-center hover:bg-gold hover:border-gold hover:text-[oklch(0.22_0.04_25)] transition-colors">
+            <a href={FACEBOOK_URL} target="_blank" rel="noreferrer" aria-label="Facebook" className="w-10 h-10 rounded-full border border-white/20 grid place-items-center hover:bg-gold hover:border-gold hover:text-[oklch(0.22_0.04_25)] transition-colors">
               <Facebook className="h-4 w-4" />
             </a>
-            <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-full border border-white/20 grid place-items-center hover:bg-gold hover:border-gold hover:text-[oklch(0.22_0.04_25)] transition-colors">
+            <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-full border border-white/20 grid place-items-center hover:bg-gold hover:border-gold hover:text-[oklch(0.22_0.04_25)] transition-colors">
               <Instagram className="h-4 w-4" />
             </a>
-            <a href="https://wa.me/923418540373" target="_blank" rel="noreferrer" aria-label="WhatsApp" className="w-10 h-10 rounded-full border border-white/20 grid place-items-center hover:bg-gold hover:border-gold hover:text-[oklch(0.22_0.04_25)] transition-colors">
+            <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" aria-label="WhatsApp" className="w-10 h-10 rounded-full border border-white/20 grid place-items-center hover:bg-gold hover:border-gold hover:text-[oklch(0.22_0.04_25)] transition-colors">
               <MessageCircle className="h-4 w-4" />
             </a>
           </div>
@@ -35,6 +36,7 @@ export function Footer() {
               { to: "/gallery", l: "Gallery" },
               { to: "/reservations", l: "Reservations" },
               { to: "/about", l: "About" },
+              { to: "/faq", l: "FAQ" },
               { to: "/contact", l: "Contact" },
             ].map((i) => (
               <li key={i.to}>

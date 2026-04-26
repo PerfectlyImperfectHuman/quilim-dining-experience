@@ -2,12 +2,13 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Star, Utensils, Clock, ChefHat, ArrowRight, Quote, MapPin, Award } from "lucide-react";
+import { Star, Utensils, Clock, ChefHat, ArrowRight, Quote, MapPin, Award, ExternalLink } from "lucide-react";
 import { usePageTitle } from "@/hooks/use-page-title";
-import heroImg from "@/assets/hero.jpg";
-import interiorImg from "@/assets/interior.jpg";
+import { GOOGLE_MAPS_URL } from "@/lib/links";
+import heroImg from "@/assets/real-family-dining.jpg";
+import interiorImg from "@/assets/real-chandelier.jpg";
 import dishParmesan from "@/assets/dish-parmesan.jpg";
-import dishPlatter from "@/assets/dish-platter.jpg";
+import dishPlatter from "@/assets/real-appetizer-platter.jpg";
 import dishSwiss from "@/assets/dish-swiss.jpg";
 
 const dishes = [
@@ -80,12 +81,18 @@ function Index() {
               <Link to="/menu">View Our Menu</Link>
             </Button>
           </div>
-          <div className="mt-9 inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur border border-white/25 text-sm">
+          <a
+            href={GOOGLE_MAPS_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-9 inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur border border-white/25 text-sm hover:bg-white/20 transition-colors group"
+          >
             <div className="flex">
               {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-gold text-gold" />)}
             </div>
             <span className="font-medium">4.6 Rating · 4,000+ Reviews on Google</span>
-          </div>
+            <ExternalLink className="h-3.5 w-3.5 opacity-70 group-hover:opacity-100" />
+          </a>
         </div>
       </section>
 
@@ -173,7 +180,12 @@ function Index() {
 
       {/* Google Review Block */}
       <section className="py-16 bg-gradient-to-br from-secondary/60 to-accent/40 border-y border-border">
-        <div className="container mx-auto px-4 text-center max-w-3xl">
+        <a
+          href={GOOGLE_MAPS_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="container mx-auto px-4 text-center max-w-3xl block group"
+        >
           <div className="inline-flex items-center gap-3 mb-5">
             <div className="flex items-center gap-1 text-3xl">
               {[...Array(5)].map((_, i) => <Star key={i} className="h-7 w-7 fill-gold text-gold" />)}
@@ -185,7 +197,10 @@ function Index() {
           <p className="text-muted-foreground mt-4 text-lg">
             Faisalabad's most reviewed fine-dining restaurant — and we're just getting started.
           </p>
-        </div>
+          <span className="inline-flex items-center gap-2 mt-5 text-sm font-medium text-primary group-hover:text-gold transition-colors">
+            Read all reviews on Google <ExternalLink className="h-4 w-4" />
+          </span>
+        </a>
       </section>
 
       {/* Reservation CTA */}
@@ -216,34 +231,52 @@ function Index() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
           {reviews.map((r) => (
-            <Card key={r.name} className="p-6 bg-card hover-lift flex flex-col">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-gold grid place-items-center text-primary font-serif font-bold text-lg shrink-0">
-                  {initials(r.name)}
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <p className="font-serif text-primary font-semibold truncate">{r.name}</p>
-                    {r.localGuide && (
-                      <span className="inline-flex items-center gap-1 text-[9px] uppercase tracking-wider bg-gold/15 text-gold-foreground border border-gold/40 rounded-full px-2 py-0.5">
-                        <Award className="h-2.5 w-2.5 text-gold" /> Local Guide
-                      </span>
-                    )}
+            <a
+              key={r.name}
+              href={GOOGLE_MAPS_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="block"
+            >
+              <Card className="p-6 bg-card hover-lift flex flex-col h-full">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-gold grid place-items-center text-primary font-serif font-bold text-lg shrink-0">
+                    {initials(r.name)}
                   </div>
-                  <div className="flex gap-0.5 mt-1">
-                    {[...Array(r.rating)].map((_, i) => <Star key={i} className="h-3.5 w-3.5 fill-gold text-gold" />)}
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <p className="font-serif text-primary font-semibold truncate">{r.name}</p>
+                      {r.localGuide && (
+                        <span className="inline-flex items-center gap-1 text-[9px] uppercase tracking-wider bg-gold/15 text-gold-foreground border border-gold/40 rounded-full px-2 py-0.5">
+                          <Award className="h-2.5 w-2.5 text-gold" /> Local Guide
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex gap-0.5 mt-1">
+                      {[...Array(r.rating)].map((_, i) => <Star key={i} className="h-3.5 w-3.5 fill-gold text-gold" />)}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <Quote className="h-5 w-5 text-gold/60 mb-2" />
-              <p className="text-foreground/80 text-sm leading-relaxed flex-1">"{r.text}"</p>
-              <div className="mt-4 pt-4 border-t border-border flex items-center gap-2 flex-wrap">
-                {r.meal && <span className="text-[10px] uppercase tracking-wider text-muted-foreground bg-secondary/60 px-2 py-1 rounded">{r.meal}</span>}
-                {r.price && <span className="text-[10px] uppercase tracking-wider text-muted-foreground bg-secondary/60 px-2 py-1 rounded">{r.price}</span>}
-                <span className="ml-auto text-[10px] uppercase tracking-wider text-muted-foreground">Google Review</span>
-              </div>
-            </Card>
+                <Quote className="h-5 w-5 text-gold/60 mb-2" />
+                <p className="text-foreground/80 text-sm leading-relaxed flex-1">"{r.text}"</p>
+                <div className="mt-4 pt-4 border-t border-border flex items-center gap-2 flex-wrap">
+                  {r.meal && <span className="text-[10px] uppercase tracking-wider text-muted-foreground bg-secondary/60 px-2 py-1 rounded">{r.meal}</span>}
+                  {r.price && <span className="text-[10px] uppercase tracking-wider text-muted-foreground bg-secondary/60 px-2 py-1 rounded">{r.price}</span>}
+                  <span className="ml-auto text-[10px] uppercase tracking-wider text-primary inline-flex items-center gap-1">
+                    Google Review <ExternalLink className="h-2.5 w-2.5" />
+                  </span>
+                </div>
+              </Card>
+            </a>
           ))}
+        </div>
+
+        <div className="mt-10">
+          <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+            <a href={GOOGLE_MAPS_URL} target="_blank" rel="noreferrer">
+              View All Reviews on Google <ExternalLink className="ml-2 h-4 w-4" />
+            </a>
+          </Button>
         </div>
       </section>
 
