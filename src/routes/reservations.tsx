@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+
 import { useState } from "react";
 import { toast } from "sonner";
 import { Layout } from "@/components/Layout";
@@ -10,16 +10,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
 import { Phone, Clock, MapPin, MessageCircle } from "lucide-react";
-
-export const Route = createFileRoute("/reservations")({
-  head: () => ({
-    meta: [
-      { title: "Reserve a Table — Quilim Restaurant" },
-      { name: "description", content: "Book your table at Quilim Restaurant in Faisalabad. We confirm via WhatsApp." },
-    ],
-  }),
-  component: ReservationsPage,
-});
 
 const times: string[] = [];
 for (let h = 12; h <= 23; h++) {
@@ -138,3 +128,5 @@ function ReservationsPage() {
     </Layout>
   );
 }
+
+export default ReservationsPage;

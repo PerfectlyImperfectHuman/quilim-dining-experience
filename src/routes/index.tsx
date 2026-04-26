@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -8,16 +8,6 @@ import aboutImg from "@/assets/about.jpg";
 import dishParmesan from "@/assets/dish-parmesan.jpg";
 import dishPlatter from "@/assets/dish-platter.jpg";
 import dishSwiss from "@/assets/dish-swiss.jpg";
-
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Quilim Restaurant — Fine Dining in Faisalabad" },
-      { name: "description", content: "Award-winning Pakistani, Continental & Chinese cuisine in Kohinoor City, Faisalabad. Reserve your table today." },
-    ],
-  }),
-  component: Index,
-});
 
 const dishes = [
   { name: "Parmesan Chicken", desc: "Tender chicken in a creamy parmesan sauce.", img: dishParmesan },
@@ -178,3 +168,5 @@ function Index() {
     </Layout>
   );
 }
+
+export default Index;

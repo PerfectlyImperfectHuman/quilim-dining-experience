@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+
 import { useState } from "react";
 import { Layout } from "@/components/Layout";
 import { PageHero } from "@/components/PageHero";
@@ -8,16 +8,6 @@ import dishPlatter from "@/assets/dish-platter.jpg";
 import dishSwiss from "@/assets/dish-swiss.jpg";
 import about from "@/assets/about.jpg";
 import hero from "@/assets/hero.jpg";
-
-export const Route = createFileRoute("/gallery")({
-  head: () => ({
-    meta: [
-      { title: "Gallery — Quilim Restaurant" },
-      { name: "description", content: "A visual feast — explore Quilim's signature dishes and elegant ambiance." },
-    ],
-  }),
-  component: GalleryPage,
-});
 
 type Img = { src: string; cat: "Food" | "Ambiance"; alt: string };
 const images: Img[] = [
@@ -91,3 +81,5 @@ function GalleryPage() {
     </Layout>
   );
 }
+
+export default GalleryPage;

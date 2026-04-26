@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Instagram, Facebook, MessageCircle, Phone, MapPin, Clock } from "lucide-react";
 
 export function Footer() {

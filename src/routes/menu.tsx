@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+
 import { useState } from "react";
 import { Layout } from "@/components/Layout";
 import { PageHero } from "@/components/PageHero";
@@ -7,16 +7,6 @@ import { Badge } from "@/components/ui/badge";
 import dishParmesan from "@/assets/dish-parmesan.jpg";
 import dishPlatter from "@/assets/dish-platter.jpg";
 import dishSwiss from "@/assets/dish-swiss.jpg";
-
-export const Route = createFileRoute("/menu")({
-  head: () => ({
-    meta: [
-      { title: "Menu — Quilim Restaurant" },
-      { name: "description", content: "Explore Quilim's full menu: Continental, Chinese & Pakistani specialties crafted with passion." },
-    ],
-  }),
-  component: MenuPage,
-});
 
 type Item = { name: string; desc: string; price: string; img: string; tag?: string };
 type Section = { id: string; label: string; items: Item[] };
@@ -122,3 +112,5 @@ function MenuPage() {
     </Layout>
   );
 }
+
+export default MenuPage;
