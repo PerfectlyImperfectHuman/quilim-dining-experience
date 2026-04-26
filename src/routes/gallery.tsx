@@ -6,23 +6,26 @@ import { X } from "lucide-react";
 import dishParmesan from "@/assets/dish-parmesan.jpg";
 import dishPlatter from "@/assets/dish-platter.jpg";
 import dishSwiss from "@/assets/dish-swiss.jpg";
+import dishKarahi from "@/assets/dish-karahi.jpg";
+import dishBbq from "@/assets/dish-bbq.jpg";
+import dishChinese from "@/assets/dish-chinese.jpg";
 import about from "@/assets/about.jpg";
 import hero from "@/assets/hero.jpg";
 
 type Img = { src: string; cat: "Food" | "Ambiance"; alt: string };
 const images: Img[] = [
+  { src: dishKarahi, cat: "Food", alt: "Sizzling Chicken Karahi" },
+  { src: hero, cat: "Ambiance", alt: "Elegant table setting" },
+  { src: dishPlatter, cat: "Food", alt: "Quilim Lunch Platter" },
+  { src: about, cat: "Ambiance", alt: "Main dining hall" },
+  { src: dishBbq, cat: "Food", alt: "Mixed BBQ Platter" },
   { src: dishParmesan, cat: "Food", alt: "Parmesan Chicken" },
-  { src: hero, cat: "Ambiance", alt: "Restaurant interior" },
-  { src: dishPlatter, cat: "Food", alt: "Lunch Platter" },
-  { src: about, cat: "Ambiance", alt: "Dining room" },
-  { src: dishSwiss, cat: "Food", alt: "Swiss chicken" },
-  { src: dishParmesan, cat: "Food", alt: "Plated dish" },
-  { src: hero, cat: "Ambiance", alt: "Warm lighting" },
-  { src: dishPlatter, cat: "Food", alt: "Platter" },
-  { src: about, cat: "Ambiance", alt: "Tables set" },
-  { src: dishSwiss, cat: "Food", alt: "Continental" },
-  { src: dishParmesan, cat: "Food", alt: "Signature dish" },
-  { src: hero, cat: "Ambiance", alt: "Chandeliers" },
+  { src: dishChinese, cat: "Food", alt: "Chicken Manchurian" },
+  { src: dishSwiss, cat: "Food", alt: "Swiss Nipolo Chicken" },
+  { src: hero, cat: "Ambiance", alt: "Warm tungsten lighting" },
+  { src: about, cat: "Ambiance", alt: "Chandeliers & velvet seating" },
+  { src: dishKarahi, cat: "Food", alt: "Traditional desi karahi" },
+  { src: dishBbq, cat: "Food", alt: "Charcoal-grilled tikka" },
 ];
 
 function GalleryPage() {
