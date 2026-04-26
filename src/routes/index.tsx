@@ -2,12 +2,13 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Star, Utensils, Clock, ChefHat, ArrowRight, Quote, MapPin, Award } from "lucide-react";
+import { Star, Utensils, Clock, ChefHat, ArrowRight, Quote, MapPin, Award, ExternalLink } from "lucide-react";
 import { usePageTitle } from "@/hooks/use-page-title";
-import heroImg from "@/assets/hero.jpg";
-import interiorImg from "@/assets/interior.jpg";
+import { GOOGLE_MAPS_URL } from "@/lib/links";
+import heroImg from "@/assets/real-family-dining.jpg";
+import interiorImg from "@/assets/real-chandelier.jpg";
 import dishParmesan from "@/assets/dish-parmesan.jpg";
-import dishPlatter from "@/assets/dish-platter.jpg";
+import dishPlatter from "@/assets/real-appetizer-platter.jpg";
 import dishSwiss from "@/assets/dish-swiss.jpg";
 
 const dishes = [
