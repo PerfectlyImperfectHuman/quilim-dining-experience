@@ -212,10 +212,11 @@ function ContactPage() {
 
             <Card className="overflow-hidden bg-card border-border/60 group">
               <iframe
-                title="Quilim Restaurant Map"
+                title="Quilim Restaurant location map"
                 src="https://maps.google.com/maps?q=31.4078299,73.11315&z=17&output=embed"
                 className="w-full h-64 border-0"
                 loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
               />
               <a
                 href={GOOGLE_MAPS_URL}

@@ -392,7 +392,7 @@ function MenuPage() {
               </h2>
               <span className="text-xs text-muted-foreground hidden sm:inline">Tap + to add to your order</span>
             </div>
-            <div className="flex gap-4 overflow-x-auto pb-3 -mx-4 px-4 snap-x">
+            <div className="flex gap-4 overflow-x-auto pb-3 -mx-4 px-4 snap-x scrollbar-hide [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden">
               {popularPicks.map((p) => {
                 const inCart = cart[p.name];
                 return (
@@ -420,7 +420,7 @@ function MenuPage() {
 
         {/* Mobile sticky pills */}
         <div className="lg:hidden sticky top-20 -mx-4 px-4 py-3 bg-background/95 backdrop-blur z-30 border-y border-border mb-6">
-          <div className="flex gap-2 overflow-x-auto -mx-4 px-4 snap-x scroll-smooth">
+          <div className="flex gap-2 overflow-x-auto -mx-4 px-4 snap-x scroll-smooth scrollbar-hide [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden">
             {sections.map((s) => (
               <button
                 key={s.id}
