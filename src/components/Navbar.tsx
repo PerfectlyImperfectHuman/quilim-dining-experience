@@ -26,10 +26,8 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Track desktop (lg+) breakpoint — mobile is ALWAYS solid.
-  // Initialize synchronously to avoid a transparent flash on first paint.
   const [isDesktop, setIsDesktop] = useState(
-    () => typeof window !== "undefined" && window.innerWidth >= 1024
+    () => typeof window !== "undefined" && window.innerWidth >= 1024,
   );
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 1024px)");
@@ -39,25 +37,21 @@ export function Navbar() {
     return () => mq.removeEventListener("change", update);
   }, []);
 
-  // Mobile is ALWAYS solid — short-circuit on isDesktop first.
   const transparent = isDesktop && isHome && !scrolled;
 
   return (
     <header
-      style={{
-        willChange: "background-color",
-        backgroundColor: transparent ? "transparent" : "oklch(0.975 0.01 80)",
-      }}
+      style={{ willChange: "background-color" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ease-out ${
-        transparent ? "" : "backdrop-blur-md border-b border-border shadow-card"
+        transparent
+          ? "bg-transparent"
+          : "bg-[oklch(0.975_0.01_80)] border-b border-border shadow-card"
       }`}
     >
       <div className="container mx-auto px-4 lg:px-8 flex items-center justify-between h-20">
         <Link to="/" className="flex items-center gap-2 group">
           <span
-            className={`font-serif text-3xl font-bold tracking-tight transition-colors ${
-              transparent ? "text-white" : "text-primary"
-            }`}
+            className={`font-serif text-3xl font-bold tracking-tight transition-colors ${transparent ? "text-white" : "text-primary"}`}
           >
             Quilim
           </span>
@@ -80,8 +74,8 @@ export function Navbar() {
                       ? "text-gold after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-0.5 after:bg-gold"
                       : "text-primary after:content-[''] after:absolute after:left-0 after:right-0 after:-bottom-1 after:h-0.5 after:bg-gold"
                     : transparent
-                    ? "text-white hover:text-gold"
-                    : "text-foreground/80 hover:text-primary"
+                      ? "text-white hover:text-gold"
+                      : "text-foreground/80 hover:text-primary"
                 }`
               }
             >
@@ -98,16 +92,13 @@ export function Navbar() {
 
         <button
           aria-label="Toggle menu"
-          className={`lg:hidden p-2 transition-colors ${
-            transparent ? "text-white" : "text-primary"
-          }`}
+          className={`lg:hidden p-2 transition-colors ${transparent ? "text-white" : "text-primary"}`}
           onClick={() => setOpen((v) => !v)}
         >
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
 
-      {/* Mobile drawer (slides from right) */}
       {open && (
         <div
           onClick={() => setOpen(false)}
@@ -115,8 +106,9 @@ export function Navbar() {
           aria-hidden
         />
       )}
+
       <div
-        className={`lg:hidden fixed top-20 right-0 bottom-0 w-72 bg-background border-l border-border shadow-elegant z-50 transition-transform duration-300 ${
+        className={`lg:hidden fixed top-20 right-0 bottom-0 w-72 bg-[oklch(0.975_0.01_80)] border-l border-border shadow-elegant z-50 transition-transform duration-300 ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -138,7 +130,10 @@ export function Navbar() {
               {l.label}
             </NavLink>
           ))}
-          <Button asChild className="mt-3 bg-primary hover:bg-primary/90 h-12 text-primary-foreground">
+          <Button
+            asChild
+            className="mt-3 bg-primary hover:bg-primary/90 h-12 text-primary-foreground"
+          >
             <Link to="/reservations" onClick={() => setOpen(false)}>
               Book a Table
             </Link>
