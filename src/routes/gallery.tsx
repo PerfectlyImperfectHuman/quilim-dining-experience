@@ -208,14 +208,33 @@ function GalleryPage() {
             <ChevronRight className="h-6 w-6" />
           </button>
           {current.type === "video" ? (
-            <video
-              src={current.src}
-              controls
-              autoPlay
-              playsInline
-              onClick={(e) => e.stopPropagation()}
-              className="max-h-[88vh] max-w-[92vw] rounded-lg bg-black"
-            />
+            <div onClick={(e) => e.stopPropagation()} className="flex flex-col items-center gap-4 max-w-[92vw]">
+              <video
+                src={current.src}
+                controls
+                autoPlay
+                playsInline
+                className="max-h-[72vh] max-w-[92vw] rounded-lg bg-black"
+              />
+              <div className="flex flex-wrap gap-3 justify-center">
+                <a
+                  href={FACEBOOK_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 px-5 h-11 rounded-md bg-[#1877F2] hover:bg-[#1560c4] text-white text-sm font-medium transition-colors"
+                >
+                  <Facebook className="h-4 w-4" /> More on Facebook
+                </a>
+                <a
+                  href={INSTAGRAM_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 px-5 h-11 rounded-md bg-gradient-to-tr from-[#feda75] via-[#d62976] to-[#4f5bd5] text-white text-sm font-medium transition-opacity hover:opacity-90"
+                >
+                  <Instagram className="h-4 w-4" /> More on Instagram
+                </a>
+              </div>
+            </div>
           ) : (
             <img
               src={current.src}
@@ -224,7 +243,7 @@ function GalleryPage() {
               className="max-h-[88vh] max-w-[92vw] object-contain rounded-lg"
             />
           )}
-          <p className="absolute bottom-6 inset-x-0 text-center text-white/85 text-sm">
+          <p className="absolute bottom-6 inset-x-0 text-center text-white/85 text-sm pointer-events-none">
             {current.alt}
           </p>
         </div>
