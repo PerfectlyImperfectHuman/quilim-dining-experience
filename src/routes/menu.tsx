@@ -568,11 +568,13 @@ function MenuPage() {
         </div>
       </section>
 
-      {/* Floating order button */}
+      {/* Floating / sticky View Order button — always visible on mobile when cart has items */}
       {itemCount > 0 && !cartOpen && (
         <button
           onClick={() => setCartOpen(true)}
-          className="fixed bottom-20 sm:bottom-6 right-6 z-40 inline-flex items-center gap-3 bg-primary hover:bg-primary/90 text-primary-foreground rounded-full pl-5 pr-6 h-14 shadow-elegant hover:scale-105 transition-transform animate-fade-in-up"
+          aria-label={`View order, ${itemCount} item${itemCount !== 1 ? "s" : ""}, total ${formatPKR(total)}`}
+          className="fixed right-4 sm:right-6 bottom-24 sm:bottom-6 z-40 inline-flex items-center gap-3 bg-primary hover:bg-primary/90 text-primary-foreground rounded-full pl-5 pr-6 h-14 shadow-elegant ring-4 ring-primary/20 hover:scale-105 transition-transform animate-fade-in-up"
+          style={{ paddingBottom: "env(safe-area-inset-bottom, 0)" }}
         >
           <span className="relative">
             <ShoppingBag className="h-5 w-5" />
@@ -580,7 +582,7 @@ function MenuPage() {
               {itemCount}
             </span>
           </span>
-          <span className="font-medium text-sm">View Order · {formatPKR(total)}</span>
+          <span className="font-medium text-sm whitespace-nowrap">View Order · {formatPKR(total)}</span>
         </button>
       )}
 
