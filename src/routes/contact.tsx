@@ -217,6 +217,7 @@ function ContactPage() {
                 className="w-full h-64 border-0"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
               />
               <a
                 href={GOOGLE_MAPS_URL}

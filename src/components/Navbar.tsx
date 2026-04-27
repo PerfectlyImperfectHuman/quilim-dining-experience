@@ -28,8 +28,8 @@ export function Navbar() {
 
   // Track desktop (lg+) breakpoint — mobile is ALWAYS solid.
   // Initialize synchronously to avoid a transparent flash on first paint.
-  const [isDesktop, setIsDesktop] = useState(() =>
-    typeof window !== "undefined" ? window.matchMedia("(min-width: 1024px)").matches : true
+  const [isDesktop, setIsDesktop] = useState(
+    () => typeof window !== "undefined" && window.innerWidth >= 1024
   );
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 1024px)");
@@ -39,16 +39,17 @@ export function Navbar() {
     return () => mq.removeEventListener("change", update);
   }, []);
 
-  // Transparent only on home page, at top, on desktop. Mobile = always solid.
-  const transparent = isHome && !scrolled && isDesktop;
+  // Mobile is ALWAYS solid — short-circuit on isDesktop first.
+  const transparent = isDesktop && isHome && !scrolled;
 
   return (
     <header
-      style={{ willChange: "background-color" }}
+      style={{
+        willChange: "background-color",
+        backgroundColor: transparent ? "transparent" : "oklch(0.975 0.01 80)",
+      }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ease-out ${
-        transparent
-          ? "bg-transparent"
-          : "bg-background backdrop-blur-md border-b border-border shadow-card"
+        transparent ? "" : "backdrop-blur-md border-b border-border shadow-card"
       }`}
     >
       <div className="container mx-auto px-4 lg:px-8 flex items-center justify-between h-20">

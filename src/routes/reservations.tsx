@@ -184,6 +184,7 @@ function ReservationsPage() {
                 className="w-full h-64 border-0"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
               />
               <a href={GOOGLE_MAPS_URL} target="_blank" rel="noreferrer" className="flex items-center justify-between gap-2 p-4 text-sm font-medium text-primary hover:bg-accent/40 transition-colors">
                 Open in Google Maps <ExternalLink className="h-4 w-4" />

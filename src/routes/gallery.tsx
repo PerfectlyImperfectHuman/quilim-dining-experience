@@ -137,7 +137,7 @@ function GalleryPage() {
                 alt={item.alt}
                 loading="lazy"
                 className={`w-full object-cover transition-transform duration-700 group-hover:scale-110 aspect-[4/3] ${
-                  item.tall ? "md:aspect-[3/4]" : "md:aspect-[4/3]"
+                  item.tall ? "sm:aspect-[3/4]" : "sm:aspect-[4/3]"
                 }`}
               />
               {item.type === "video" && (
