@@ -111,7 +111,7 @@ export function Navbar() {
         />
       )}
       <div
-        className={`lg:hidden fixed top-20 right-0 bottom-0 w-72 bg-background border-l border-border shadow-elegant z-50 transition-transform duration-300 ${
+        className={`lg:hidden fixed top-20 right-0 bottom-0 w-72 bg-background/95 backdrop-blur-md border-l border-border shadow-elegant z-50 transition-transform duration-300 ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -123,10 +123,10 @@ export function Navbar() {
               end={l.to === "/"}
               onClick={() => setOpen(false)}
               className={({ isActive }) =>
-                `px-4 py-3 rounded-md transition-colors min-h-[44px] flex items-center ${
+                `relative px-4 py-3 rounded-md transition-colors min-h-[44px] flex items-center ${
                   isActive
-                    ? "bg-accent text-primary font-medium"
-                    : "text-foreground hover:bg-accent"
+                    ? "text-primary font-semibold after:content-[''] after:absolute after:left-4 after:right-4 after:bottom-1.5 after:h-0.5 after:bg-gold"
+                    : "text-foreground/80 hover:text-primary hover:bg-accent"
                 }`
               }
             >
