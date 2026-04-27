@@ -179,10 +179,11 @@ function ReservationsPage() {
 
             <Card className="overflow-hidden bg-card border-border/60">
               <iframe
-                title="Quilim Restaurant Map"
+                title="Quilim Restaurant location map"
                 src="https://maps.google.com/maps?q=31.4078299,73.11315&z=17&output=embed"
                 className="w-full h-64 border-0"
                 loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
               />
               <a href={GOOGLE_MAPS_URL} target="_blank" rel="noreferrer" className="flex items-center justify-between gap-2 p-4 text-sm font-medium text-primary hover:bg-accent/40 transition-colors">
                 Open in Google Maps <ExternalLink className="h-4 w-4" />

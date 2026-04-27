@@ -5,7 +5,7 @@ import { FACEBOOK_URL, INSTAGRAM_URL, WHATSAPP_URL } from "@/lib/links";
 export function Footer() {
   return (
     <footer className="bg-[oklch(0.22_0.04_25)] text-[oklch(0.96_0.01_80)] mt-20">
-      <div className="container mx-auto px-4 lg:px-8 py-16 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+      <div className="container mx-auto px-4 lg:px-8 py-16 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <div className="flex items-center gap-2 mb-3">
             <span className="font-serif text-3xl font-bold">Quilim</span>

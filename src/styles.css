@@ -101,6 +101,7 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    overscroll-behavior-y: contain;
   }
   h1, h2, h3, h4, h5 {
     font-family: var(--font-serif);
@@ -142,6 +143,13 @@
   }
   .animate-fade-in-up {
     animation: fadeInUp 0.7s ease-out both;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }
 
