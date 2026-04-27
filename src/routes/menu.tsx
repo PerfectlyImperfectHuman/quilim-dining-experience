@@ -392,7 +392,10 @@ function MenuPage() {
               </h2>
               <span className="text-xs text-muted-foreground hidden sm:inline">Tap + to add to your order</span>
             </div>
-            <div className="flex gap-4 overflow-x-auto pb-3 -mx-4 px-4 snap-x scrollbar-hide [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden">
+            <div
+              className="flex gap-4 overflow-x-auto pb-3 -mx-4 px-4 snap-x [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+              style={{ WebkitOverflowScrolling: "touch" }}
+            >
               {popularPicks.map((p) => {
                 const inCart = cart[p.name];
                 return (
