@@ -2,18 +2,115 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Quilim Restaurant — Fine Dining in Faisalabad</title>
-    <meta name="description" content="Award-winning Pakistani, Continental & Chinese cuisine at Quilim Restaurant, Faisalabad. 4.6★ rated by 4,000+ guests." />
+
+    <!-- ═══ Primary SEO ═══ -->
+    <title>Quilim Restaurant — Fine Dining in Faisalabad | Pakistani · Continental · Chinese</title>
+    <meta
+      name="description"
+      content="Quilim Restaurant Faisalabad — 4.6★ rated fine dining. Authentic Pakistani, Continental & Chinese cuisine. Open daily 11AM–12AM. Book a table or order via WhatsApp."
+    />
+    <meta
+      name="keywords"
+      content="Quilim restaurant, fine dining Faisalabad, restaurant Faisalabad, Pakistani restaurant, continental food Faisalabad, Chinese food Faisalabad, best restaurant Faisalabad, People's Colony restaurant"
+    />
+    <meta name="author" content="Quilim Restaurant" />
+    <link rel="canonical" href="https://quilim-dining-experience.vercel.app/" />
+
+    <!-- ═══ Open Graph (Facebook, WhatsApp, LinkedIn) ═══ -->
+    <meta property="og:type" content="restaurant" />
+    <meta property="og:site_name" content="Quilim Restaurant" />
     <meta property="og:title" content="Quilim Restaurant — Fine Dining in Faisalabad" />
-    <meta property="og:description" content="Award-winning Pakistani, Continental & Chinese cuisine in Faisalabad." />
-    <meta property="og:type" content="website" />
+    <meta
+      property="og:description"
+      content="4.6★ · 4,000+ guests served · Pakistani, Continental & Chinese cuisine. Open daily 11AM–12AM. Book your table today."
+    />
+    <meta property="og:url" content="https://quilim-dining-experience.vercel.app/" />
+    <meta property="og:image" content="https://quilim-dining-experience.vercel.app/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Quilim Restaurant interior — Fine Dining in Faisalabad"
+    />
+    <meta property="og:locale" content="en_PK" />
+
+    <!-- ═══ Twitter / X Card ═══ -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Quilim Restaurant — Fine Dining in Faisalabad" />
+    <meta
+      name="twitter:description"
+      content="4.6★ · 4,000+ guests · Pakistani, Continental & Chinese cuisine. Book your table today."
+    />
+    <meta name="twitter:image" content="https://quilim-dining-experience.vercel.app/og-image.jpg" />
+
+    <!-- ═══ Favicon ═══ -->
+    <link rel="icon" type="image/jpeg" href="/quilim-favicon.jpg" />
+    <link rel="apple-touch-icon" href="/quilim-favicon.jpg" />
+
+    <!-- ═══ Fonts ═══ -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" />
-    <style>html{scroll-behavior:smooth}</style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- ═══ Restaurant JSON-LD Structured Data ═══ -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "name": "Quilim Restaurant",
+        "description": "Fine dining restaurant in Faisalabad serving authentic Pakistani, Continental, Chinese and Thai cuisine.",
+        "url": "https://quilim.vercel.app",
+        "telephone": "+92-41-8540373",
+        "image": "https://quilim-dining-experience.vercel.app/og-image.jpg",
+        "priceRange": "PKR 400–1500",
+        "currenciesAccepted": "PKR",
+        "paymentAccepted": "Cash, Credit Card, Debit Card",
+        "servesCuisine": ["Pakistani", "Continental", "Chinese", "Thai", "BBQ"],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.6",
+          "reviewCount": "4000",
+          "bestRating": "5",
+          "worstRating": "1"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "C457+47J Hashmat Ali Khan Road, Block C, People's Colony No 1",
+          "addressLocality": "Faisalabad",
+          "addressRegion": "Punjab",
+          "addressCountry": "PK"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 31.4078299,
+          "longitude": 73.11315
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+            ],
+            "opens": "11:00",
+            "closes": "24:00"
+          }
+        ],
+        "sameAs": ["https://www.facebook.com/Quilim.fsd/", "https://www.instagram.com/quilim.fsd/"],
+        "hasMenu": "https://quilim-dining-experience.vercel.app/menu",
+        "acceptsReservations": true,
+        "reservationUrl": "https://quilim-dining-experience.vercel.app/reservations"
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
